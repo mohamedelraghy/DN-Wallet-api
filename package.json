@@ -1,0 +1,23 @@
+{
+  "name": "dn-wallet-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest --watchAll --verbose --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohamedelraghy/DN-Wallet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohamedelraghy/DN-Wallet/issues"
+  },
+  "homepage": "https://github.com/mohamedelraghy/DN-Wallet#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
