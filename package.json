@@ -1,7 +1,7 @@
 {
   "name": "dn-wallet-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "RestApi for DN-Wallet Project ",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/mohamedelraghy/DN-Wallet#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.9.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
