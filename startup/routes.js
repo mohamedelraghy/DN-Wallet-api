@@ -1,5 +1,5 @@
 const express = require('express');
-const users = require('../models/user');
+const users = require('../routes/users');
 
 
 module.exports = function(app){
