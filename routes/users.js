@@ -44,7 +44,7 @@ router.get('/me', async (req, res) => {
     res.send(user._id);
 })
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('userPhoto'), async (req, res) => {
    
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
@@ -53,24 +53,10 @@ router.post('/', async (req, res) => {
     if(user) return res.status(400).send(`User Already registered`); 
 
     user = new User(_.pick(req.body, ['name', 'email', 'password', 'gender', 'phone', 'job']));
+    user.photo = req.file.path;
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
-    //user.photo =
-    upload(req, res, function (err) {
-
-        if (err) {
-
-            // ERROR occured (here it can be occured due 
-            // to uploading image of size greater than 
-            // 1MB or uploading different file type) 
-            res.send(err)
-        }
-        else {
-
-            // SUCCESS, image successfully uploaded 
-            res.send("Success, Image uploaded!")
-        }
-    }) 
+   
     await user.save();
     return res.send(user)
 });
