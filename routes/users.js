@@ -1,5 +1,4 @@
 const multer = require('multer');
-const path = require("path");
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const express = require('express');
@@ -9,11 +8,11 @@ const { User, validate } = require('../models/user');
 
 
 const storage = multer.diskStorage({
-    destination : (req, file, cb) => {
-        cb(null, './uplodas/');
+    destination: (req, file, cb) => {
+        cb(null, './uploads/');
     },
-    filename: function(req, file, cb){
-        cb(null, Date.now().toISOString() + '-' + file.originalname);
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString() + '-' + file.originalname);
     }
 });
 
@@ -21,31 +20,30 @@ const fileFilter = (req, file, cb) => {
     const fileTypes = /jpeg|jpg|png/;
     const mimeType = fileTypes.test(file.mimetype);
 
-    const extname = fileTypes.test(path.extname(
-        file.originalname).toLowerCase());
 
-    if (mimetype && extname) return cb(null, true);
+    if (mimeType) return cb(null, true);
 
     cb("Error: File upload only supports the "
         + "following filetypes - " + filetypes);
 }
 
 const upload = multer({
+    
     storage : storage,
     limits: {
-        fileSize : 1024 * 1042 * 4
+        fileSize : 1024 * 1042 * 5
     },
     fileFilter : fileFilter
 });
 
 
 router.get('/me', async (req, res) => {
-    //const user = await User.findById(req.user._id).select('-password');
+    const user = await User.findById(req.user._id).select('-password');
     res.send(user._id);
 })
 
-router.post('/', upload.single('userPhoto'), async (req, res) => {
-   
+router.post('/', upload.single('photo'), async (req, res) => {
+    console.log(req.file);
     const { error } = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     
