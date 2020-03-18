@@ -56,7 +56,9 @@ router.post('/', upload.single('photo'), async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt);
    
     await user.save();
-    return res.send(user)
+
+    const token = user.generateAuthToken();
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
 });
 
 module.exports = router;
