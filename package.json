@@ -7,6 +7,9 @@
     "start": "node index.js",
     "test": "jest --watchAll --verbose --coverage"
   },
+  "engines": {
+    "node" : "12.16.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mohamedelraghy/DN-Wallet.git"
