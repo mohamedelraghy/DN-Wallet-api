@@ -6,7 +6,6 @@ const router = express.Router();
 const { User, validate } = require('../models/user');
 
 
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './uploads/');
@@ -43,7 +42,7 @@ router.get('/me', async (req, res) => {
 })
 
 router.post('/', upload.single('photo'), async (req, res) => {
-    
+    console.log(req.file);
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     
