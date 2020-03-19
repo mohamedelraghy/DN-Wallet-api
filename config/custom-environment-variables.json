@@ -1,4 +1,4 @@
 {
-    "db" : "DN-Wallet_db",
+    "db" : "DN_Wallet_db",
     "jwtKey": "DN_Wallet_jwtKey"
 }
