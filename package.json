@@ -4,7 +4,7 @@
   "description": "RestApi for DN-Wallet Project ",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "jest --watchAll --verbose --coverage"
   },
   "repository": {
