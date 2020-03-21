@@ -1,9 +1,9 @@
-const multer = require('multer');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const { User, validate } = require('../models/user');
+const imgUpload = require('../middleware/multer');
 
 
 router.get('/me', async (req, res) => {
@@ -11,7 +11,7 @@ router.get('/me', async (req, res) => {
     res.send(user._id);
 })
 
-router.post('/', upload.single('photo'), async (req, res) => {
+router.post('/', imgUpload, async (req, res) => {
     
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -20,7 +20,7 @@ router.post('/', upload.single('photo'), async (req, res) => {
     if(user) return res.status(400).send(`User Already registered`); 
 
     user = new User(_.pick(req.body, ['name', 'email', 'password', 'gender', 'phone', 'job']));
-    user.photo = req.file.path;
+    user.photo = req.files[0].path;
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
    
