@@ -1,4 +1,7 @@
 {
     "db" : "mongodb://localhost/DN-Wallet",
-    "jwtKey": ""
+    "jwtKey": "",
+    "cloud_name": "",
+    "api_key": "",
+    "api_secret": ""
 }

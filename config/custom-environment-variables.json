@@ -1,4 +1,7 @@
 {
     "db" : "DN_Wallet_db",
-    "jwtKey": "DN_Wallet_jwtKey"
+    "jwtKey": "DN_Wallet_jwtKey",
+    "cloud_name": "DN_Wallet_cloudName",
+    "api_key" : "DN_Wallet_apiKey",
+    "api_secret" : "DN_Wallet_apiSecret"
 }
