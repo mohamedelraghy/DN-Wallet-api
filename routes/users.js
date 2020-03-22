@@ -5,6 +5,7 @@ const router = express.Router();
 const { User, validate } = require('../models/user');
 const imgUpload = require('../middleware/multer');
 const cloudinary = require('../onlineUpload');
+const fs = require('fs');
 
 
 router.get('/me', async (req, res) => {
@@ -28,6 +29,8 @@ router.post('/', imgUpload, async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt);
    
     await user.save();
+
+    fs.unlinkSync(req.files[0].path);
 
     const token = user.generateAuthToken();
     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
