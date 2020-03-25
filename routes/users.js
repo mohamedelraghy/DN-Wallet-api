@@ -26,8 +26,7 @@ router.post('/', imgUpload, async (req, res) => {
     } 
     user = new User(_.pick(req.body, ['name', 'email', 'password', 'gender', 'phone', 'job']));
     
-    if (!req.files[0]) user.photo = 'uploads/default.png';
-    else { 
+    if (req.files[0]) { 
         const picAttr = await cloudinary.uploads(req.files[0].path);
         user.photo = picAttr.url;
         fs.unlinkSync(req.files[0].path);
