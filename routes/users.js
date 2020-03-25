@@ -24,15 +24,17 @@ router.post('/', imgUpload, async (req, res) => {
 
     user = new User(_.pick(req.body, ['name', 'email', 'password', 'gender', 'phone', 'job']));
     
-    if(!req.files[0].path){}
-    const picAttr = await cloudinary.uploads(req.files[0].path);
-    user.photo = picAttr.url;
+    if (!req.files[0]) user.photo = 'uploads/default.png';
+    else { 
+        const picAttr = await cloudinary.uploads(req.files[0].path);
+        user.photo = picAttr.url;
+        fs.unlinkSync(req.files[0].path);
+    }
+
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
    
     await user.save();
-
-    fs.unlinkSync(req.files[0].path);
 
     const token = user.generateAuthToken();
     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
