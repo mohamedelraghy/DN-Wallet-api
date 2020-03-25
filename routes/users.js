@@ -16,8 +16,6 @@ router.get('/me', auth, async (req, res) => {
 
 router.post('/', imgUpload, async (req, res) => {
 
-    const picAttr = await cloudinary.uploads(req.files[0].path);
-
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     
@@ -25,6 +23,9 @@ router.post('/', imgUpload, async (req, res) => {
     if(user) return res.status(400).send(`User Already registered`); 
 
     user = new User(_.pick(req.body, ['name', 'email', 'password', 'gender', 'phone', 'job']));
+    
+    if(!req.files[0].path){}
+    const picAttr = await cloudinary.uploads(req.files[0].path);
     user.photo = picAttr.url;
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
