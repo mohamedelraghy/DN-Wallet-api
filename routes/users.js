@@ -43,7 +43,7 @@ router.post('/register', imgUpload, async (req, res) => {
     await user.save();
 
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).json({user});
+    res.header('x-auth-token', token).json({"user._id" : user._id});
 });
 
 // router.put('/info',)
