@@ -37,7 +37,8 @@ const userSchema = new mongoose.Schema({
         minlength : 5,
         maxlength : 50
     },
-    photo: String
+    photo: { type : String },
+    country : {type : String }
 });
 
 userSchema.methods.generateAuthToken = function(){
@@ -55,7 +56,8 @@ function validateUser(user) {
         gender : Joi.string().valid('Male', 'Female'),
         phone : Joi.string().max(11),
         job : Joi.string().min(5).max(50),
-        photo : Joi.string()
+        photo : Joi.string(),
+        country : Joi.string()
     };
     return Joi.validate(user, schema)
 }
