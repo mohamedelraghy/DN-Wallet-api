@@ -12,20 +12,25 @@ const fs = require('fs');
 router.get('/me', auth, async (req, res) => {
     const user = await User.findById(req.user._id).select('-password');
     res.send(user);
-})
+    
+});
 
-router.post('/', imgUpload, async (req, res) => {
+router.post('/register', imgUpload, async (req, res) => {
+
+
+    // TODO: confirmation code sned via (email & Phone number) [ 😂️ الله المستعان]
 
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     
     let user = await User.findOne({ email : req.body.email });
     if(user){
-        fs.unlinkSync(req.files[0].path);
-        return res.status(400).send(`User Already registered`); 
+
+        if(req.files[0]) fs.unlinkSync(req.files[0].path);
+        return res.status(400).json(`User Already registered`); 
     } 
-    user = new User(_.pick(req.body, ['name', 'email', 'password', 'gender', 'phone', 'job']));
-    
+  
+    user = new User(_.pick(req.body, ['name', 'email', 'password', 'country', 'phone']));
     if (req.files[0]) { 
         const picAttr = await cloudinary.uploads(req.files[0].path);
         user.photo = picAttr.url;
@@ -38,7 +43,9 @@ router.post('/', imgUpload, async (req, res) => {
     await user.save();
 
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
+    res.header('x-auth-token', token).json({user});
 });
+
+// router.put('/info',)
 
 module.exports = router;
