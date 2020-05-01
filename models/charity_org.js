@@ -8,6 +8,9 @@ const charitySchema = new mongoose.Schema({
     org_image: {
         type : String
     },
+    name : {
+        type : String
+    },
     address : {
         type : String,
         maxlength: 50
@@ -42,6 +45,7 @@ function validateCharity(charity){
     const schema = {
         org_logo : Joi.string(),
         org_image : Joi.string(),
+        name : Joi.string(),
         address : Joi.string().max(50),
         founders: Joi.string(),
         vision : Joi.string(),
