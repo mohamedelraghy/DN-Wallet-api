@@ -24,6 +24,12 @@ router.post('/create', imgUpload, async (req, res) =>{
         charity.org_logo = picAttr.url;
         fs.unlinkSync(req.files[0].path);
     }
+
+    if(req.files[1]) {
+        const picAttr = await cloudinary.uploads(req.files[1].path);
+        charity.org_image = picAttr.url;
+        fs.unlinkSync(req.files[1].path);
+    }
     
 
     await charity.save()
