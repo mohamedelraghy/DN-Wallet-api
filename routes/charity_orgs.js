@@ -4,6 +4,7 @@ const { Charity, validate } = require('../models/charity_org');
 const _ = require('lodash');
 const imgUpload = require('../middleware/multer');
 const cloudinary = require('../onlineUpload');
+const fs = require('fs')
 
 
 router.get('/', async (req, res) => {

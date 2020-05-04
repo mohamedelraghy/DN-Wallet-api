@@ -23,17 +23,14 @@ router.post('/register', imgUpload, async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     
-    
     let user = await User.findOne({ email : req.body.email });
     if(user){
-        
+        console.log(req.files[0]);
         if(req.files[0]) fs.unlinkSync(req.files[0].path);
         return res.status(400).json(`User Already registered`); 
     } 
     
     user = new User(_.pick(req.body, ['name', 'email', 'password', 'country', 'phone']));
-    
-    console.log('here');
     
     if (req.files[0]) { 
         console.log('photo saved');
@@ -41,7 +38,6 @@ router.post('/register', imgUpload, async (req, res) => {
         user.photo = picAttr.url;
         fs.unlinkSync(req.files[0].path);
     }
-    console.log('here');
     
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
