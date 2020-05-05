@@ -2,9 +2,10 @@
   "name": "dn-wallet-api",
   "version": "1.0.0",
   "description": "RestApi for DN-Wallet Project ",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node .",
+    "dev": "nodemon .",
     "test": "jest --watchAll --verbose --coverage"
   },
   "engines": {
@@ -28,6 +29,7 @@
     "ejs": "^3.1.2",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "formidable": "^1.2.2",
     "helmet": "^3.22.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
