@@ -35,9 +35,9 @@ async function create(req, res){
             charity.org_image = secure_url;
         }
         
-        console.log(charity);
-        
-        
+        charity.donation_number = 0;
+        charity.amount = 0;
+    
         await charity.save()
         res.json(charity)
     });
