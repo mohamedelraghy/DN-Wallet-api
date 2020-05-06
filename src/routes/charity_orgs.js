@@ -12,4 +12,6 @@ router.get('/', async (req, res) => {
 
 router.post('/create', charityController.Create);
 
+router.post('/donate/:id', charityController.donate);
+
 module.exports = router;
