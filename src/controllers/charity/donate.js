@@ -4,7 +4,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 async function donate(req, res) {
 
     const id = req.params.id;
-    if(!ObjectId.isValid(id)) return res.status(400).json('Not valid ID');
+    if(!ObjectId.isValid(id)) return res.status(400).json('InValid ID');
 
     let chariy = await Charity.findById(id);
     if(!chariy) return res.status(400).json('Charity with the given ID not found');
