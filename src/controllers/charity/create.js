@@ -18,7 +18,8 @@ async function create(req, res){
         let charity = new Charity(_.pick(req.body, ['name', 'address', 'founders', 'vision', 'about', 'email', 'phone']));
 
         if(files.logo){
-            const {secure_url, err} = await cloudinaryUpload(files.image.path);
+
+            const {secure_url, err} = await cloudinaryUpload(files.logo.path);
             if(err) {
                 console.error(err);
                 return res.status(400).json(err);
@@ -27,7 +28,7 @@ async function create(req, res){
         }
 
         if(files.image) {
-            const {secure_url, err} = await cloudinaryUpload(files.logo.path);
+            const {secure_url, err} = await cloudinaryUpload(files.image.path);
             if(err) {
                 console.error(err);
                 return res.status(400).json(er);
