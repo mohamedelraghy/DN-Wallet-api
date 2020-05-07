@@ -5,9 +5,9 @@ const contactsSchema = new mongoose.Schema({
         type : mongoose.Types.ObjectId,
         ref : 'User'
     },
-    constacts : [{
+    contacts : [{
         userID : {
-            type : [mongoose.Types.ObjectId],
+            type : mongoose.Types.ObjectId,
             ref : 'User'
         },
     }]
