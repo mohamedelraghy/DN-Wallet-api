@@ -13,7 +13,7 @@ async function donate(req, res) {
     chariy.donation_number += 1;
     chariy.amount += req.body.amount;
 
-    chariy.save();
+    await chariy.save();
     res.status(200).json(chariy);
 }
 
