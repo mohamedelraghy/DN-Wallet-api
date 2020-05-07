@@ -4,9 +4,7 @@ const auth = require('../middleware/auth');
 
 const contactsController = require('../controllers/contacts');
 
-router.get('/', (req, res) => {
-    
-});
+router.get('/all', auth, contactsController.showAll);
 
 router.post('/create/:id', auth, contactsController.Create);
 
