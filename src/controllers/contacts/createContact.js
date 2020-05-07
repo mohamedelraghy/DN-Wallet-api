@@ -19,7 +19,7 @@ async function create(req, res){
         userID : contactID
     }
 
-    contact.constacts.unshift(newConatct);
+    contact.contacts.unshift(newConatct);
 
     await contact.save();
     res.status(200).json(contact)
