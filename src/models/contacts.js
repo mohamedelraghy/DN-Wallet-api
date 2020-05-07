@@ -5,10 +5,12 @@ const contactsSchema = new mongoose.Schema({
         type : mongoose.Types.ObjectId,
         ref : 'User'
     },
-    constacts : {
-        type : [mongoose.Types.ObjectId],
-        ref : 'User'
-    }
+    constacts : [{
+        userID : {
+            type : [mongoose.Types.ObjectId],
+            ref : 'User'
+        },
+    }]
 });
 
 const Contact = mongoose.model('Contact', contactsSchema);
