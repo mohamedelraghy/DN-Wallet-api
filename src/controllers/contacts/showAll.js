@@ -6,6 +6,14 @@ async function showAll(req, res){
         .populate('user contacts.userID', ' -password -photo');
 
     if(!contacts) return res.status(400).json('No contacts Found');
+
+    // sort contacts by name 
+    contacts[0].contacts.sort((a, b) => {
+        if(a.userID.name < b.userID.name) return -1;
+        if(a.userID.name > b.userID.name) return 1;
+        return 0;
+    });
+
     res.status(200).send(contacts);
 }
 
