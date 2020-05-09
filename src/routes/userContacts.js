@@ -8,4 +8,6 @@ router.get('/all', auth, contactsController.showAll);
 
 router.post('/create/:id', auth, contactsController.Create);
 
+router.delete('/delete/:id', auth, contactsController.Delete);
+
 module.exports = router;
