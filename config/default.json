@@ -3,5 +3,8 @@
     "jwtKey": "",
     "cloud_name": "",
     "api_key": "",
-    "api_secret": ""
+    "api_secret": "",
+    "twilio-service_id": "",
+    "twilio-account_sid": "",
+    "twilio-auth_token" : ""
 }

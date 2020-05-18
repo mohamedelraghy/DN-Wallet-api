@@ -3,5 +3,8 @@
     "jwtKey": "DN_Wallet_jwtKey",
     "cloud_name": "DN_Wallet_cloudName",
     "api_key" : "DN_Wallet_apiKey",
-    "api_secret" : "DN_Wallet_apiSecret"
+    "api_secret" : "DN_Wallet_apiSecret",
+    "twilio-service_id": "DN_Wallet_twilio-service_id",
+    "twilio-account_sid" : "DN_Wallet_twilio-account_sid",
+    "twilio-auth_token" : "DN_Wallet_twillio-auth_token"
 }
