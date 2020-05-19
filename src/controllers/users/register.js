@@ -29,6 +29,7 @@ async function register (req, res) {
       user.photo = secure_url;
     }
 
+    if(user.password !== req.body.confirm_password) return res.status(400).json("password doesn't match")
   
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);

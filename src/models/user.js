@@ -53,6 +53,7 @@ function validateUser(user) {
         name: Joi.string().min(5).max(50).required(),
         email: Joi.string().min(5).max(255).required().email(),
         password: Joi.string().min(8).max(255).required(),
+        confirm_password: Joi.string().min(8).max(255).required(),
         gender : Joi.string().valid('Male', 'Female'),
         phone : Joi.string().max(11),
         job : Joi.string().min(5).max(50),
