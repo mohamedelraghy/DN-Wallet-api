@@ -19,3 +19,5 @@ async function codeCheck(req, res){
     return res.status(200).json({ "Verified": verificationRequest.status })
 
 }
+
+module.exports = codeCheck;
