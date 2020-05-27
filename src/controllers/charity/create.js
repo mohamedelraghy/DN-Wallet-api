@@ -14,9 +14,16 @@ async function create(req, res){
 
         const { error } = validate(req.body);
         if (error) return res.status(400).send(error.details[0].message);
-    
-        let charity = new Charity(_.pick(req.body, ['name', 'address', 'founders', 'vision', 'about', 'email', 'phone']));
 
+        let charity = new Charity(_.pick(req.body, ['name', 'address', 'founders', 'vision', 'about', 'email', 'phone']));
+        
+        const location = {
+            lat : req.body.lat,
+            lan : req.body.lan
+        }
+        
+        charity.location = location;
+        
         if(files.logo){
 
             const {secure_url, err} = await cloudinaryUpload(files.logo.path);
