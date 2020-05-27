@@ -61,7 +61,9 @@ function validateCharity(charity){
         email : Joi.string().email(),
         phone : Joi.string().min(11),
         donation_number: Joi.number(),
-        amount : Joi.number()
+        amount : Joi.number(),
+        lat : Joi.number(),
+        lan : Joi.number()
     }
     return Joi.validate(charity, schema);
 }
