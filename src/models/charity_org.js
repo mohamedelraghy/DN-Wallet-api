@@ -36,6 +36,14 @@ const charitySchema = new mongoose.Schema({
     },
     amount : {
         type : Number
+    },
+    location : {
+        lat : {
+            type : Number
+        },
+        lan : {
+            type : Number
+        }
     }
 });
 
@@ -53,7 +61,7 @@ function validateCharity(charity){
         email : Joi.string().email(),
         phone : Joi.string().min(11),
         donation_number: Joi.number(),
-        amount : Joi.number() 
+        amount : Joi.number()
     }
     return Joi.validate(charity, schema);
 }
