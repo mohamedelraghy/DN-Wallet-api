@@ -3,5 +3,5 @@ const comperssion = require('compression');
 
 module.exports = function(app) {
     app.use(helmet());
-    app.use(comperssion); 
+    app.use(comperssion()); 
 }
