@@ -39,8 +39,6 @@ async function register (req, res) {
     const token = user.generateAuthToken();
     res.header('x-auth-token', token).json({"user._id" : user._id});
   });
-
-  // TODO: confirmation code sned via (email & Phone number) [ 😂️ الله المستعان]
 }
 
 module.exports = register;
