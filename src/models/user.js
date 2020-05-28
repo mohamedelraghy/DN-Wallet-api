@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     phone : {
         type : String,
-        maxlength : 11
+        minlength : 11
     },
     password : {
         type : String,
@@ -38,7 +38,11 @@ const userSchema = new mongoose.Schema({
         maxlength : 50
     },
     photo: { type : String },
-    country : {type : String }
+    country : {type : String },
+    userIsValidate : {
+        type : Boolean,
+        default : false,
+    }
 });
 
 userSchema.methods.generateAuthToken = function(){
@@ -55,7 +59,7 @@ function validateUser(user) {
         password: Joi.string().min(8).max(255).required(),
         confirm_password: Joi.string().min(8).max(255).required(),
         gender : Joi.string().valid('Male', 'Female'),
-        phone : Joi.string().max(11),
+        phone : Joi.string().min(11),
         job : Joi.string().min(5).max(50),
         photo : Joi.string(),
         country : Joi.string()
