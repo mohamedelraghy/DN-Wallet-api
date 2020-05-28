@@ -11,7 +11,7 @@ async function sendCode(req, res){
         verificationRequest = await twilio.verify.services(config.get('twilio-service_id'))
                             .verifications
                             .create({
-                                to : req.body.phoneNumber,
+                                to : phoneNumber,
                                 channel : 'sms'
                             });
     } catch(err) {
