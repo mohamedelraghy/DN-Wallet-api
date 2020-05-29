@@ -7,8 +7,10 @@ const usersController = require('../controllers/users');
 
 
 router.get('/me', auth, usersController.Me);
+
 router.post('/register', usersController.register);
 
-// router.put('/info',)
+router.put('/info', auth, usersController.editUser);
+
 
 module.exports = router;
