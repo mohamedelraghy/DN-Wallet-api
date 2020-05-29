@@ -19,7 +19,7 @@ async function register (req, res) {
     let user = await User.findOne({ email : req.body.email });
     if(user) return res.status(400).json('User Already registered'); 
     
-    user = new User(_.pick(req.body, ['name', 'email', 'password', 'country', 'phone']));
+    user = new User(_.pick(req.body, ['name', 'email', 'password']));
     if (files.photo) {
       const {secure_url, err} = await cloudinaryUpload(files.photo.path);
       if (err) {
@@ -37,7 +37,7 @@ async function register (req, res) {
     await user.save();
   
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).json({"user._id" : user._id});
+    res.header('x-auth-token', token).json({"user._id" : user._id, "Token" : token});
   });
 }
 
