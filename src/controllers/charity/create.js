@@ -47,7 +47,7 @@ async function create(req, res){
         charity.amount = 0;
     
         await charity.save()
-        res.json(charity)
+        res.status(200).json(charity)
     });
 }
 
