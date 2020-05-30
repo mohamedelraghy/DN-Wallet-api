@@ -14,4 +14,6 @@ router.put('/info', auth, usersController.editUser); // edit user info
 
 router.post('/pic', auth, usersController.profilePic); // add profile picture
 
+router.delete('/pic', auth, usersController.)
+
 module.exports = router;
