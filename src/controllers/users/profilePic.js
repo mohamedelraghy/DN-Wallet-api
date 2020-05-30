@@ -3,16 +3,17 @@ const cloudinaryUpload = require('../../services/cloudinary');
 const formidable = require('formidable')
 
 async function setProfilePic(req, res) {
+
     const form = new formidable.IncomingForm();
     form.parse(req, async(formError, fields, files) => {
         if(formError){
             console.error(form);
             return res.status(400).json(formError);
         }
-        
+
         req.body = files;
 
-        let user = await User.findById(req.user._id);
+        let user = await User.findById(req.user._id).select('-password');
         if(!user) return res.status(400).json('User not found');
 
         if(files.photo){
@@ -24,7 +25,11 @@ async function setProfilePic(req, res) {
 
             user.photo = secure_url;
         }
+
+        await user.save();
+        res.status(200).json("photo uploaded successfully" );
     });
+
 }
 
 module.exports = setProfilePic;
