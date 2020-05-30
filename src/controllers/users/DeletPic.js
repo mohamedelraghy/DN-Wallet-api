@@ -9,9 +9,7 @@ async function deletePic(req, res){
 
     await user.save();
 
-    console.log(user);
     return res.status(200).json('profile Picture Deleted');
-
 }
 
 module.exports = deletePic;
