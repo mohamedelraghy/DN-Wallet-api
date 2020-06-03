@@ -16,4 +16,6 @@ router.post('/pic', auth, usersController.profilePic); // add profile picture
 
 router.delete('/pic', auth, usersController.deletePic); // delelte profile pic
 
+router.post('/rest-password', usersController.restPassword); // forgot password
+
 module.exports = router;
