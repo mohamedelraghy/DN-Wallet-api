@@ -6,5 +6,6 @@
     "api_secret": "",
     "twilio-service_id": "",
     "twilio-account_sid": "",
-    "twilio-auth_token" : ""
+    "twilio-auth_token" : "",
+    "sendGrid-api_key" : ""
 }
