@@ -20,4 +20,6 @@ router.post('/forget-password', usersController.forgetPassword); //forget passwo
 
 router.post('/rest-password/:token', usersController.restPassword); // rest password
 
+router.put('/new-password', auth, usersController.changePassword); // Change Password
+
 module.exports = router;
