@@ -9,7 +9,7 @@ async function forgetPassword(req, res) {
     if(error) return res.status(400).send(error.details[0].message);
     
     const user = await User.findOne({email : req.body.email});
-    if(!user) return res.status(400).json({ "error" : "User with the given ID is not found"});
+    if(!user) return res.status(400).json({ "error" : "User with the given email is not found"});
 
     const token = user.generateAuthToken();
 
