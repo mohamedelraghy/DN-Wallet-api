@@ -21,7 +21,7 @@ async function register (req, res) {
   await user.save();
 
   const token = user.generateAuthToken();
-  res.header('x-auth-token', token).json({"user._id" : user._id, "Token" : token});
+  res.header('x-auth-token', token).json({ "token": token, "id": user._id });
   
 }
 
