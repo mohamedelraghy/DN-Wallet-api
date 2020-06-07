@@ -9,7 +9,6 @@ async function showAll(req, res){
     
     // sort contacts by name
     if(contacts[0].contacts){
-
         contacts[0].contacts.sort((a, b) => {
             if(a.userID.name < b.userID.name) return -1;
             if(a.userID.name > b.userID.name) return 1;
