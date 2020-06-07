@@ -7,12 +7,15 @@ async function showAll(req, res){
 
     if(!contacts) return res.status(400).json('No contacts Found');
 
-    // sort contacts by name 
-    contacts[0].contacts.sort((a, b) => {
-        if(a.userID.name < b.userID.name) return -1;
-        if(a.userID.name > b.userID.name) return 1;
-        return 0;
-    });
+    // sort contacts by name
+    if(contacts[0].contacts){
+        
+        contacts[0].contacts.sort((a, b) => {
+            if(a.userID.name < b.userID.name) return -1;
+            if(a.userID.name > b.userID.name) return 1;
+            return 0;
+        });
+    }
 
     res.status(200).send(contacts);
 }
