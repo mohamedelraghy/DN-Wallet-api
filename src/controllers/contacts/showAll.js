@@ -5,11 +5,11 @@ async function showAll(req, res){
     const contacts = await Contact.find({ user: userID })
         .populate('user contacts.userID', ' -password -photo');
 
-    if(!contacts) return res.status(400).json('No contacts Found');
-
+    if (!contacts || contacts.length === 0 || contacts === undefined) return res.status(400).json('No contacts Found');
+    
     // sort contacts by name
     if(contacts[0].contacts){
-        
+
         contacts[0].contacts.sort((a, b) => {
             if(a.userID.name < b.userID.name) return -1;
             if(a.userID.name > b.userID.name) return 1;
