@@ -24,7 +24,7 @@ async function forgetPassword(req, res) {
       subject: "Reset Password",
       html: `
             <p>You requested a password reset</p>
-            <p>Click this <a href="https://hidden-sea-27440.herokuapp.com/api/users/rest-password/${token}">link</a> to set a new password.</p>       
+            <p>Click this <a href="https://dn-wallet.herokuapp.com/api/users/rest-password/${token}">link</a> to set a new password.</p>       
         `,
     });
 
