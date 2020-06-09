@@ -8,7 +8,7 @@ async function sendCode(req, res){
     if (error) return res.status(400).json({ "error": error.details[0].message });
 
     const phoneNumber = req.body.phoneNumber;
-    if(phoneNumber[0] !== '+') return res.status(400).json('You should send country code');
+    if(phoneNumber[0] !== '+') return res.status(400).json({ "error" : "You should send country code" });
     
     let verificationRequest;
     try{
