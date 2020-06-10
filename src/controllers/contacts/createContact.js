@@ -4,7 +4,8 @@ const Joi = require('joi');
 
 async function create(req, res){
 
-
+    const { error } = validate(req.body);
+    
     
     const user = await User.find({"email" : req.body.email});
     if(!user) return res.status(400).json( { "id": null, "error": "User With The Given Email is not Found"} );
@@ -32,6 +33,11 @@ async function create(req, res){
     res.status(200).json({ "id": user._id, "error": null })
 }
 
-
+function validate(req){
+    const schema = {
+        "email" : Joi.string().min(5).max(255).email().required()
+    }
+    return Joi.validate(req, schema);
+}
 
 module.exports = create;
