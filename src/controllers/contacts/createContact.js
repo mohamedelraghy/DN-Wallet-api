@@ -5,9 +5,9 @@ const Joi = require('joi');
 async function create(req, res){
 
     const { error } = validate(req.body);
+    if(error) return res.status(400).json({"id": null, "error": error.details[0].message});
     
-    
-    const user = await User.find({"email" : req.body.email});
+    const user = await User.findOne({"email" : req.body.email});
     if(!user) return res.status(400).json( { "id": null, "error": "User With The Given Email is not Found"} );
 
     let contact = await Contact.findOne({user: req.user._id});
@@ -15,7 +15,7 @@ async function create(req, res){
         contact = new Contact({
             user: req.user._id
         });
-    }
+    }    
     
     if (req.user._id == user._id) return res.status(400).json({ "id": null, "error": "You cannot Add yourself As a contact"});
    
