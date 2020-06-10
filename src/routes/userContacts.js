@@ -6,7 +6,7 @@ const contactsController = require('../controllers/contacts');
 
 router.get('/', auth, contactsController.showAll);
 
-router.post('/create/:id', auth, contactsController.Create);
+router.post('/create', auth, contactsController.Create);
 
 router.delete('/delete/:id', auth, contactsController.Delete);
 

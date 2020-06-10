@@ -4,9 +4,6 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 async function create(req, res){
     
-    const contactID = req.params.id;
-    if (!ObjectId.isValid(contactID)) return res.status(400).json('Invaild ID');
-    
     const user = await User.findById(contactID);
     if(!user) return res.status(400).json('User With The Given ID is not Found');
 
