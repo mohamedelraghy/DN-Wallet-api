@@ -23,7 +23,7 @@ async function sendCode(req, res){
     }
 
     
-    return res.status(200).json({ "Verfication code send successfully" : verificationRequest.status})
+    return res.status(200).json({ "error" : null})
 }
 
 function validate(req) {
