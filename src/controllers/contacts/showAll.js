@@ -1,6 +1,7 @@
 const { Contact } = require('../../models/contacts');
 
 async function showAll(req, res){
+
     const userID = req.user._id;
     const contacts = await Contact.find({ user: userID })
         .populate('user contacts.userID', ' -password -photo');
@@ -16,7 +17,7 @@ async function showAll(req, res){
         });
     }
 
-    res.status(200).send(contacts);
+    res.status(200).json(contacts[0].contacts);
 }
 
 module.exports = showAll;
