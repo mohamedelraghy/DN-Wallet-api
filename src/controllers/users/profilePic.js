@@ -14,20 +14,20 @@ async function setProfilePic(req, res) {
         req.body = files;
 
         let user = await User.findById(req.user._id).select('-password');
-        if(!user) return res.status(400).json('User not found');
+        if(!user) return res.status(400).json({ "error": "User not found" });
 
         if(files.photo){
             const {secure_url, err} = await cloudinaryUpload(files.photo.path);
             if(err) {
                 console.error(err);
-                res.status(400).json(err);
+                res.status(400).json({ "error": err });
             }
 
             user.photo = secure_url;
         }
 
         await user.save();
-        res.status(200).json("photo uploaded successfully" );
+        res.status(200).json({"error": null });
     });
 
 }
