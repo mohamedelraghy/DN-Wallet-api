@@ -11,8 +11,6 @@ async function forgetPassword(req, res) {
     const user = await User.findOne({email : req.body.email});
     if(!user) return res.status(400).json({ "error" : "User with the given email is not found"});
 
-    const token = user.generateAuthToken();
-
     user.restCode = req.body.code;
     user.restCodeExpiration = Date.now() + 3600000;
 
@@ -24,7 +22,7 @@ async function forgetPassword(req, res) {
       subject: "Reset Password",
       html: `
             <p>You requested a password reset</p>
-            <p>User this code: ${req.body.code}  to rest Your Password</p>       
+            <p>Use this code: ${req.body.code}  to rest Your Password</p>       
         `,
     });
 
@@ -35,7 +33,7 @@ async function forgetPassword(req, res) {
 function validate(req){
     const schema = {
         email : Joi.string().min(5).max(255).required(),
-        code : Joi.string()
+        code : Joi.string().required()
     }
     return Joi.validate(req, schema);
 }
