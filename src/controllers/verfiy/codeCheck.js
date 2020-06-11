@@ -7,7 +7,7 @@ async function codeCheck(req, res){
     let verificationResult;
 
     const phoneNumber = req.body.phoneNumber;
-    if (phoneNumber[0] !== '+') return res.status(400).json('You should send country code');
+    if (phoneNumber[0] !== '+') return res.status(400).json({ "error": "You should send country code"});
 
     try{
         verificationResult = await twilio.verify.services(config.get('twilio-service_id'))
@@ -27,10 +27,10 @@ async function codeCheck(req, res){
         user.userIsValidate = true;
         await user.save();
         console.log(user);
-        return res.status(200).json({ "Verified": verificationResult.status });
+        return res.status(200).json({ "error": null });
     }
 
-    return res.status(400).json('someThing went wrong');
+    return res.status(400).json({"error": "someThing went wronge"});
 }
 
 module.exports = codeCheck;
