@@ -13,8 +13,8 @@ async function forgetPassword(req, res) {
 
     const token = user.generateAuthToken();
 
-    user.restToken = token;
-    user.restTokenExpiration = Date.now() + 3600000;
+    user.restCode = req.body.code;
+    user.restCodeExpiration = Date.now() + 3600000;
 
     await user.save();
 
@@ -24,7 +24,7 @@ async function forgetPassword(req, res) {
       subject: "Reset Password",
       html: `
             <p>You requested a password reset</p>
-            <p>Click this <a href="https://dn-wallet.herokuapp.com/api/users/rest-password/${token}">link</a> to set a new password.</p>       
+            <p>User this code: ${req.body.code}  to rest Your Password</p>       
         `,
     });
 
@@ -34,7 +34,8 @@ async function forgetPassword(req, res) {
 
 function validate(req){
     const schema = {
-        email : Joi.string().min(5).max(255).required()
+        email : Joi.string().min(5).max(255).required(),
+        code : Joi.string()
     }
     return Joi.validate(req, schema);
 }
