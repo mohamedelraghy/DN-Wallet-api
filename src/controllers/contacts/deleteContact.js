@@ -12,8 +12,8 @@ async function deleteContact(req, res){
     let contact = await Contact.findOne({ user: req.user._id });
     
     const removedContactIndex = contact.contacts.findIndex(contact => contact.userID == removedContactID);
-    if(removedContactIndex === -1) return res.status(400).json('No Such a Contact')
-    const removedContact = contact.contacts.splice(removedContactIndex, 1);
+    if(removedContactIndex === -1) return res.status(400).json({ "error": "No Such a Contact"})
+    contact.contacts.splice(removedContactIndex, 1);
 
     await contact.save();
 
