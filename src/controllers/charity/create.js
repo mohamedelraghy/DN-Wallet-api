@@ -8,12 +8,12 @@ async function create(req, res){
     form.parse(req, async (formError, fields, files) => {
         if(formError){
             console.error(formError);
-            return res.status(400).json(formError);
+            return res.status(400).json({ "error": formError });
         }
         req.body = fields;
 
         const { error } = validate(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+        if (error) return res.status(400).json({ "error": error.details[0].message });
 
         let charity = new Charity(_.pick(req.body, ['name', 'address', 'founders', 'vision', 'about', 'email', 'phone']));
         
@@ -38,7 +38,7 @@ async function create(req, res){
             const {secure_url, err} = await cloudinaryUpload(files.image.path);
             if(err) {
                 console.error(err);
-                return res.status(400).json(er);
+                return res.status(400).json({ "error" : err });
             }
             charity.org_image = secure_url;
         }
