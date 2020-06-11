@@ -10,6 +10,8 @@ async function create(req, res){
     const user = await User.findOne({"email" : req.body.email});
     if(!user) return res.status(400).json( { "id": null, "error": "User With The Given Email is not Found"} );
 
+    const contactID = user._id.toString()
+    
     let contact = await Contact.findOne({user: req.user._id});
     if(!contact) {
         contact = new Contact({
@@ -17,20 +19,22 @@ async function create(req, res){
         });
     }    
     
-    if (req.user._id == user._id) return res.status(400).json({ "id": null, "error": "You cannot Add yourself As a contact"});
-   
-    const found = contact.contacts.find(contact => contact.userID == user._id); // cast to objectID 
-    if (found) return res.status(400).json({ "id": null, "error": "Contact Already Exists" });
+    if (req.user._id == contactID) return res.status(400).json({ "id": null, "error": "You cannot Add yourself As a contact"});
+
+    const found = contact.contacts.find(contact => contact.userID == contactID ); 
     
+    if(found) return res.status(400).json({ "id": null, "error": "Contact Already Exists" });
 
     const newConatct = {
-        userID : user._id
+        userID : contactID
     }
 
     contact.contacts.unshift(newConatct);
 
     await contact.save();
-    res.status(200).json({ "id": user._id, "error": null })
+
+    res.status(200).json({ "id": user._id, "error": null });
+    
 }
 
 function validate(req){
