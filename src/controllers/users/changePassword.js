@@ -5,20 +5,20 @@ const Joi = require('joi');
 async function chagePassword(req, res) {
 
     const { error } = validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message)
+    if(error) return res.status(400).json({ "error": error.details[0].message })
 
     const user = await User.findById(req.user._id);
     if(!user) return res.status(200).json({"error": "User with the Given ID is not found"});
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if(!validPassword) return res.status(200).json({"error": "Invalid Password"});
+    if(!validPassword) return res.status(200).json({ "error": "Invalid Password" });
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(req.body.newPassword, salt);
 
     await user.save();
 
-    return res.status(200).json({"Message": "Password successfully cahanged"});
+    return res.status(200).json({ "error": null });
 }
 
 function validate(req) {
