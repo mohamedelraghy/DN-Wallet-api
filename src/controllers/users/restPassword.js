@@ -17,7 +17,7 @@ async function restPassword(req, res) {
 
     await user.save();
 
-    res.status(200).json({"Message" : "password Reseted Successfully"});
+    res.status(200).json({"error" : null});
 
 }
 
