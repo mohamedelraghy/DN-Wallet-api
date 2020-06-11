@@ -6,7 +6,7 @@ const Joi = require('joi');
 async function forgetPassword(req, res) {
 
     const { error } = validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(400).json({ "error": error.details[0].message});
     
     const user = await User.findOne({email : req.body.email});
     if(!user) return res.status(400).json({ "error" : "User with the given email is not found"});
@@ -28,7 +28,7 @@ async function forgetPassword(req, res) {
         `,
     });
 
-    return res.status(200).json({"message": "Email Sent Successfully"})
+    return res.status(200).json({"error": null})
 
 }
 
