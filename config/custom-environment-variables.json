@@ -7,6 +7,5 @@
     "twilio-service_id": "DN_Wallet_twilio_service_id",
     "twilio-account_sid" : "DN_Wallet_twilio_account_sid",
     "twilio-auth_token" : "DN_Wallet_twilio_auth_token",
-    "sendGrid-api_key" : "DN_Wallet_send_grid_api_key",
-    "Domain" : "DN_Wallet_domain"
+    "sendGrid-api_key" : "DN_Wallet_send_grid_api_key"
 }

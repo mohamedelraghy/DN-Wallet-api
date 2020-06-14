@@ -7,6 +7,5 @@
     "twilio-service_id": "",
     "twilio-account_sid": "",
     "twilio-auth_token" : "",
-    "sendGrid-api_key" : "",
-    "Domain": "localhost:3000"
+    "sendGrid-api_key" : ""
 }

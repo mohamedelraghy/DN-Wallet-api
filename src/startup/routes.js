@@ -4,7 +4,6 @@ const auth = require('../routes/auth');
 const charity = require('../routes/charity_orgs');
 const contact = require('../routes/userContacts');
 const verfiy = require('../routes/twilioVerfiy');
-const config = require('config');
 
 module.exports = function(app){
     app.use(express.json());
