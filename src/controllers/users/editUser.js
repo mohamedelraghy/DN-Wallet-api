@@ -2,9 +2,12 @@ const { User } = require('../../models/user');
 const Joi = require('joi');
 
 async function editUser(req, res) {
+
+    const { error } = Validate(req.body);
+    if(error) return res.status(400).json({ "error" : error.details[0].message });
+
     let user = await User.findById(req.user._id);
     if(!user) return res.status(400).json({ "error": "User not Found" });
-
 
     for (const key in req.body) {
         user[key] = req.body[key];
