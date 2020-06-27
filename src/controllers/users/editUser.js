@@ -1,4 +1,5 @@
 const { User } = require('../../models/user');
+const Joi = require('joi');
 
 async function editUser(req, res) {
     let user = await User.findById(req.user._id);
@@ -13,5 +14,16 @@ async function editUser(req, res) {
     
     return res.status(200).json({ "error": null });
 }
+
+function Validate(req){
+    const schema = {
+        gender: Joi.string().valid('Male', 'Female'),
+        job: Joi.string().min(5).max(50),
+        country: Joi.string()
+    }
+
+    return Joi.validate(req, schema);
+}
+
 
 module.exports = editUser;
