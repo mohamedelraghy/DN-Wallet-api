@@ -19,11 +19,11 @@ async function sendCode(req, res){
                                 channel : 'sms'
                             });
     } catch(err) {
-        return res.status(400).json({"error": err})
+        return res.status(400).json({ "error": err })
     }
 
     
-    return res.status(200).json({ "error" : null})
+    return res.status(200);
 }
 
 function validate(req) {

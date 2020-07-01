@@ -9,7 +9,7 @@ async function deletePic(req, res){
 
     await user.save();
 
-    return res.status(200).json({ "error": null });
+    return res.status(200);
 }
 
 module.exports = deletePic;

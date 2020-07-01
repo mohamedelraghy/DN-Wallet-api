@@ -17,7 +17,7 @@ async function deleteContact(req, res){
 
     await contact.save();
 
-    res.status(200).json({ "error" : null })
+    res.status(200);
 }
 
 module.exports = deleteContact;

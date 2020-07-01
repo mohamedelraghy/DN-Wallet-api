@@ -8,7 +8,7 @@ async function chagePassword(req, res) {
     if(error) return res.status(400).json({ "error": error.details[0].message })
 
     const user = await User.findById(req.user._id);
-    if(!user) return res.status(200).json({"error": "User with the Given ID is not found"});
+    if(!user) return res.status(200).json({ "error": "User with the Given ID is not found" });
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if(!validPassword) return res.status(200).json({ "error": "Invalid Password" });
@@ -18,7 +18,7 @@ async function chagePassword(req, res) {
 
     await user.save();
 
-    return res.status(200).json({ "error": null });
+    return res.status(200);
 }
 
 function validate(req) {

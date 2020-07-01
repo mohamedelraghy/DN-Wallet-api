@@ -6,10 +6,10 @@ const Joi = require('joi');
 async function restPassword(req, res) {
 
     const { error } = validate(req.body);
-    if(error) return res.status(400).json({"error": error.details[0].message});
+    if(error) return res.status(400).json({ "error": error.details[0].message });
 
-    const user = await User.findOne({ email: req.body.email, restCode: req.body.code, restCodeExpiration: { $gt: Date.now()}});
-    if(!user) return res.status(400).json({"error" : "Invalid Code"});
+    const user = await User.findOne({ email: req.body.email, restCode: req.body.code, restCodeExpiration: { $gt: Date.now() } });
+    if(!user) return res.status(400).json({ "error" : "Invalid Code" });
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(req.body.password, salt);
@@ -19,7 +19,7 @@ async function restPassword(req, res) {
 
     await user.save();
 
-    res.status(200).json({"error" : null});
+    res.status(200);
 
 }
 

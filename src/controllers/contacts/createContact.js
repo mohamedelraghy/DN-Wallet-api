@@ -5,25 +5,25 @@ const Joi = require('joi');
 async function create(req, res){
 
     const { error } = validate(req.body);
-    if (error) return res.status(400).json({ "id": null, "email": null, "name": null, "error": error.details[0].message});
+    if (error) return res.status(400).json({ "error": error.details[0].message });
     
-    const user = await User.findOne({"email" : req.body.email});
-    if (!user) return res.status(400).json({ "id": null, "email": null, "name": null, "error": "User With The Given Email is not Found"} );
+    const user = await User.findOne({ "email" : req.body.email });
+    if (!user) return res.status(400).json({ "error": "User With The Given Email is not Found" });
 
     const contactID = user._id.toString()
     
-    let contact = await Contact.findOne({user: req.user._id});
+    let contact = await Contact.findOne({ user: req.user._id });
     if(!contact) {
         contact = new Contact({
             user: req.user._id
         });
     }    
     
-    if (req.user._id == contactID) return res.status(400).json({ "id": null, "email": null, "name": null, "error": "You cannot Add yourself As a contact"});
+    if (req.user._id == contactID) return res.status(400).json({ "error": "You cannot Add yourself As a contact" });
 
     const found = contact.contacts.find(contact => contact.userID == contactID ); 
     
-    if (found) return res.status(400).json({ "id": null, "email": null, "name": null, "error": "Contact Already Exists" });
+    if (found) return res.status(400).json({ "error": "Contact Already Exists" });
 
     const newConatct = {
         userID : contactID
@@ -33,7 +33,7 @@ async function create(req, res){
 
     await contact.save();
 
-    res.status(200).json({ "id": user._id, "email": user.email, "name": user.name, "error": null });
+    res.status(200).json({ "id": user._id, "email": user.email, "name": user.name });
     
 }
 
