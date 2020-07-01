@@ -24,7 +24,7 @@ async function forgetPassword(req, res) {
       subject: "Reset Password",
       html: `
             <p>You requested a password reset</p>
-            <p>Use this code: ${req.body.code}  to rest Your Password</p>       
+            <p>Use this code: ${code}  to rest Your Password</p>       
         `,
     });
 
