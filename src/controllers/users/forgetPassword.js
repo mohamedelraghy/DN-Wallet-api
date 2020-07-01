@@ -11,7 +11,9 @@ async function forgetPassword(req, res) {
     const user = await User.findOne({ email : req.body.email });
     if(!user) return res.status(400).json({ "error" : "User with the given email is not found"});
 
-    user.restCode = req.body.code;
+    code = generateCode(4);
+
+    user.restCode = code;
     user.restCodeExpiration = Date.now() + 3600000;
 
     await user.save();
@@ -30,10 +32,13 @@ async function forgetPassword(req, res) {
 
 }
 
+function generateCode(digit_num){
+    return Math.floor(Math.random() * (9 * Math.pow(10, digit_num - 1))) + Math.pow(10, digit_num - 1); 
+}
+
 function validate(req){
     const schema = {
         email : Joi.string().min(5).max(255).required(),
-        code : Joi.string().required()
     }
     return Joi.validate(req, schema);
 }
