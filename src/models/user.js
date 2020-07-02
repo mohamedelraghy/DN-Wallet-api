@@ -42,12 +42,10 @@ const userSchema = new mongoose.Schema({
     photo: { type : String },
     country : {type : String },
     userIsValidate : {
-        type : Boolean,
-        default : false,
+        type : Boolean
     },
     restPassword : {
-        type : Boolean,
-        default : false
+        type : Boolean
     }
 });
 
