@@ -6,6 +6,7 @@ const deletePic = require('./DeletPic');
 const forgetPassword = require('./forgetPassword');
 const restPassword = require('./restPassword');
 const changePassword = require('./changePassword');
+const forgetPasswordCheck = require('./forgetPasswordCheck'); 
 
 module.exports = {
   register,
@@ -16,4 +17,5 @@ module.exports = {
   forgetPassword,
   restPassword,
   changePassword,
+  forgetPasswordCheck,
 }
