@@ -32,8 +32,8 @@ const userSchema = new mongoose.Schema({
         minlength : 8,
         maxlength : 1024
     },
-    restCode: String,
-    restCodeExpiration: Date,
+    resetCode: String,
+    resetCodeExpiration: Date,
     job : {
         type : String,
         minlength : 5,
