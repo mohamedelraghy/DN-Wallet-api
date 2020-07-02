@@ -22,7 +22,7 @@ async function checkCode(req, res){
 function validate(req){
     const schema = {
         email : Joi.string().email().required(),
-        code : Joi.string().min(4).max(4)
+        code : Joi.string().min(4).max(4).required()
     }
 
     return Joi.validate(req, schema);

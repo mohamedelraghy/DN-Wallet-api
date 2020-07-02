@@ -29,7 +29,7 @@ function validate(req){
     const schmea = {
         email : Joi.string().min(5).max(255).required().email(),
         password: Joi.string().min(8).max(255).required(),
-        code : Joi.string()
+        code : Joi.string().required()
     }
     return Joi.validate(req, schmea);
 }
