@@ -16,5 +16,13 @@ async function checkCode(req, res){
 
 }
 
+function validate(req){
+    const schema = {
+        email : Joi.string().email().required(),
+        code : Joi.string().min(4).max(4)
+    }
+    
+    return Joi.validate(req, schema);
+}
 
 module.exports = checkCode;
