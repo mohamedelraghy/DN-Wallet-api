@@ -23,7 +23,7 @@ async function sendCode(req, res){
     }
 
     
-    return res.status(200);
+    return res.status(200).json();
 }
 
 function validate(req) {

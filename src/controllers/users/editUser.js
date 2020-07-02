@@ -15,7 +15,7 @@ async function editUser(req, res) {
    
     await user.save();
     
-    return res.status(200);
+    return res.status(200).json();
 }
 
 function Validate(req){

@@ -27,7 +27,7 @@ async function setProfilePic(req, res) {
         }
 
         await user.save();
-        res.status(200);
+        res.status(200).json();
     });
 
 }

@@ -25,9 +25,9 @@ async function codeCheck(req, res){
         let user = await User.findById(req.user._id);
         user.phone = phoneNumber;
         user.userIsValidate = true;
+        
         await user.save();
-        console.log(user);
-        return res.status(200);
+        return res.status(200).json();
     }
 
     return res.status(400).json({ "error": "someThing went wronge" });
