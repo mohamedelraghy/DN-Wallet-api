@@ -18,6 +18,8 @@ router.delete('/pic', auth, usersController.deletePic); // delelte profile pic
 
 router.post('/forget-password', usersController.forgetPassword); //forget password
 
+router.post('/forget-password-check', usersController.forgetPasswordCheck);
+
 router.post('/rest-password', usersController.restPassword); // rest password
 
 router.put('/new-password', auth, usersController.changePassword); // Change Password
