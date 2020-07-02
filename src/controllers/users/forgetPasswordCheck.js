@@ -5,13 +5,16 @@ const Joi = require('joi');
 
 async function checkCode(req, res){
    
-    const user = await User.findOne({ email: req.body.email, restCode: req.body.code, restCodeExpiration: { $gt: Date.now() } });
+    const user = await User.findOne({ email: req.body.email, resetCode: req.body.code, resetCodeExpiration: { $gt: Date.now() } });
     if (!user) return res.status(400).json({ "error": "Invalid Code" });
 
-    user.restPassword = true;
+    user.resetPassword = true;
 
-    return res.status(200).json({ user });
+    await user.save();
+
+    return res.status(200).json(user);
 
 }
+
 
 module.exports = checkCode;
