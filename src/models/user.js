@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
     userIsValidate : {
         type : Boolean
     },
-    restPassword : {
+    resetPassword : {
         type : Boolean
     }
 });
