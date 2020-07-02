@@ -4,7 +4,7 @@ const editUser = require('./editUser');
 const profilePic = require('./profilePic');
 const deletePic = require('./DeletPic');
 const forgetPassword = require('./forgetPassword');
-const restPassword = require('./restPassword');
+const resetPassword = require('./resetPassword');
 const changePassword = require('./changePassword');
 const forgetPasswordCheck = require('./forgetPasswordCheck'); 
 
@@ -15,7 +15,7 @@ module.exports = {
   profilePic,
   deletePic,
   forgetPassword,
-  restPassword,
+  resetPassword,
   changePassword,
   forgetPasswordCheck,
 }
