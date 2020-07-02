@@ -13,8 +13,8 @@ async function forgetPassword(req, res) {
 
     code = generateCode(4);
 
-    user.restCode = code;
-    user.restCodeExpiration = Date.now() + 3600000;
+    user.resetCode = code;
+    user.resetCodeExpiration = Date.now() + 3600000;
 
     await user.save();
 
@@ -24,11 +24,11 @@ async function forgetPassword(req, res) {
       subject: "Reset Password",
       html: `
             <p>You requested a password reset</p>
-            <p>Use this code: ${code}  to rest Your Password</p>       
+            <p>Use this code: ${code} to reset Your Password</p>       
         `,
     });
 
-    return res.status(200);
+    return res.status(200).json();
 
 }
 
