@@ -46,6 +46,10 @@ const userSchema = new mongoose.Schema({
     },
     resetPassword : {
         type : Boolean
+    },
+    accountIsActive : {
+        type : Boolean,
+        default : false
     }
 });
 
