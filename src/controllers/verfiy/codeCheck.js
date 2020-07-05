@@ -27,7 +27,7 @@ async function codeCheck(req, res){
         user.userIsValidate = true;
         
         await user.save();
-        return res.status(200).json();
+        return res.status(200).json({ "success": "Valid code"} );
     }
 
     return res.status(400).json({ "error": "someThing went wronge" });

@@ -23,7 +23,7 @@ async function sendCode(req, res){
     }
 
     
-    return res.status(200).json();
+    return res.status(200).json( {"success": "Check you inbox"} );
 }
 
 function validate(req) {
