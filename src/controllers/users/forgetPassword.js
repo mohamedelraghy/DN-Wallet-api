@@ -28,8 +28,7 @@ async function forgetPassword(req, res) {
         `,
     });
 
-    return res.status(200).json();
-
+    return res.status(200).json({ "success": "Check your inbox" });
 }
 
 function generateCode(digit_num){
