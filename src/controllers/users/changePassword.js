@@ -18,7 +18,7 @@ async function chagePassword(req, res) {
 
     await user.save();
 
-    return res.status(200).json();
+    return res.status(200).json({ "success": "PassWord Changed Successfully"} );
 }
 
 function validate(req) {
