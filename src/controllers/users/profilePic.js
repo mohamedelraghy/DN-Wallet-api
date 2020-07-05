@@ -27,7 +27,7 @@ async function setProfilePic(req, res) {
         }
 
         await user.save();
-        res.status(200).json();
+        res.status(200).json({ "success": "Phot uploaded successfully"});
     });
 
 }
