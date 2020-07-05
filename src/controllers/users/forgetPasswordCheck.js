@@ -15,7 +15,7 @@ async function checkCode(req, res){
 
     await user.save();
 
-    return res.status(200).json();
+    return res.status(200).json({ "success": "Valid code" });
 
 }
 
