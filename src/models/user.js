@@ -50,11 +50,13 @@ const userSchema = new mongoose.Schema({
     accountIsActive : {
         type : Boolean,
         default : false
-    }
+    },
+    emailCode : String,
+    emailCodeExpiration: Date,
 });
 
 userSchema.methods.generateAuthToken = function(){
-    const token = jwt.sign({_id : this._id}, config.get('jwtKey'));
+    const token = jwt.sign({_id: this._id}, config.get('jwtKey'));
     return token;
 }
 
