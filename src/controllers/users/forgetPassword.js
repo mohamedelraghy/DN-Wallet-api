@@ -11,7 +11,7 @@ async function forgetPassword(req, res) {
     const user = await User.findOne({ email : req.body.email });
     if(!user) return res.status(400).json({ "error" : "User with the given email is not found"});
 
-    code = generateCode(4);
+    const code = generateCode(4);
 
     user.resetCode = code;
     user.resetCodeExpiration = Date.now() + 3600000;
