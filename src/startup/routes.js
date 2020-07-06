@@ -4,6 +4,7 @@ const auth = require('../routes/auth');
 const charity = require('../routes/charity_orgs');
 const contact = require('../routes/userContacts');
 const verfiy = require('../routes/twilioVerfiy');
+const emailActive = require('../routes/activeEmail');
 
 module.exports = function(app){
     app.use(express.json());
@@ -19,4 +20,5 @@ module.exports = function(app){
     app.use('/api/charity', charity);
     app.use('/api/contacts', contact);
     app.use('/api/verfiy', verfiy);
+    app.use('/api/verfiy/email', emailActive);
 }
