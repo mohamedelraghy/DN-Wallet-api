@@ -3,7 +3,7 @@ const transporter = require('../../services/sendGrid');
 
 async function sendCodeToEmail(req, res){
 
-    const user = await User.findById(req.user._id).select('-_id -password');
+    const user = await User.findById(req.user._id).select('-password');    
     const code = generateCode(4);
 
     user.emailCode = code;
