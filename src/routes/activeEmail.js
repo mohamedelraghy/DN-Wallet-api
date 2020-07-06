@@ -7,4 +7,6 @@ const verficationController = require('../controllers/verfiy');
 
 router.get('/', auth, verficationController.emailcode); // send activation key to email
 
+router.post('/', auth, verficationController.checkActiveKey);
+
 module.exports = router;
