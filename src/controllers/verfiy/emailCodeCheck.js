@@ -15,7 +15,7 @@ async function checkActiveKey(req, res){
 
     await user.save();
 
-    return res.status(200).json({ "success" : "Account is activated", "accountIsActuve": user.accountIsActive });
+    return res.status(200).json({ "success" : "Account is activated", "accountIsActive": user.accountIsActive });
 
 }
 
