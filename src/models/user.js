@@ -20,11 +20,13 @@ const userSchema = new mongoose.Schema({
     },
     gender : {
         type : String,
-        enum : ['Male', 'Female']
+        enum : ['Male', 'Female'],
+        default : null
     },
     phone : {
         type : String,
-        minlength : 11
+        minlength : 11,
+        default : null
     },
     password : {
         type : String,
@@ -37,12 +39,20 @@ const userSchema = new mongoose.Schema({
     job : {
         type : String,
         minlength : 5,
-        maxlength : 50
+        maxlength : 50,
+        default : null
     },
-    photo: { type : String },
-    country : {type : String },
+    photo: { 
+        type : String,
+        default: config.get('profilePic')
+    },
+    country : {
+        type : String,
+        default : null
+    },
     userIsValidate : {
-        type : Boolean
+        type : Boolean,
+        default : false
     },
     resetPassword : {
         type : Boolean
