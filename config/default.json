@@ -7,5 +7,6 @@
     "twilio-service_id": "",
     "twilio-account_sid": "",
     "twilio-auth_token" : "",
-    "sendGrid-api_key" : ""
+    "sendGrid-api_key" : "",
+    "profilePic" : ""
 }
