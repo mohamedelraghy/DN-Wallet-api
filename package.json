@@ -41,6 +41,7 @@
     "nodemailer": "^6.4.8",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "npm-check-updates": "^7.0.1",
+    "stripe": "^8.69.0",
     "twilio": "^3.46.0",
     "winston": "^3.2.1",
     "winston-mongodb": "^5.0.1"
