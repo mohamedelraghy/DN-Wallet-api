@@ -1,5 +1,5 @@
 const config = require('config');
-const stripe = require("stream")(config.get("stripeKey"));
+const stripe = require('stripe')(config.get("stripeKey"));
 
 async function pay(req, res) {
 
