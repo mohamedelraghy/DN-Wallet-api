@@ -8,5 +8,6 @@
     "twilio-account_sid": "",
     "twilio-auth_token" : "",
     "sendGrid-api_key" : "",
-    "profilePic" : ""
+    "profilePic" : "",
+    "stripeKey": "STRIPE_TEST_KEY"
 }

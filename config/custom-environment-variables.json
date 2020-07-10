@@ -8,5 +8,6 @@
     "twilio-account_sid" : "DN_Wallet_twilio_account_sid",
     "twilio-auth_token" : "DN_Wallet_twilio_auth_token",
     "sendGrid-api_key" : "DN_Wallet_send_grid_api_key",
-    "profilePic" : "DN_Wallet_profile_pic_url"
+    "profilePic" : "DN_Wallet_profile_pic_url",
+    "stripeKey" : "STRIPE_TEST_KEY"
 }
