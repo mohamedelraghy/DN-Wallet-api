@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon .",
-    "test": "jest --watchAll --verbose --coverage",
-    "preinstall": "npx npm-force-resolutions"
+    "test": "jest --watchAll --verbose --coverage"
   },
   "engines": {
     "node": "12.16.1"
@@ -23,6 +22,7 @@
   },
   "homepage": "https://github.com/mohamedelraghy/DN-Wallet#readme",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.22.0",
     "compression": "^1.7.4",
