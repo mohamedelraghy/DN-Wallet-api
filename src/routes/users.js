@@ -24,4 +24,6 @@ router.post('/rest-password', usersController.resetPassword); // rest password
 
 router.put('/new-password', auth, usersController.changePassword); // Change Password
 
+router.get('/active', auth, usersController.accountIsActive);
+
 module.exports = router;
