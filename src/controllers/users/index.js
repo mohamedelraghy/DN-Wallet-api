@@ -7,6 +7,7 @@ const forgetPassword = require('./forgetPassword');
 const resetPassword = require('./resetPassword');
 const changePassword = require('./changePassword');
 const forgetPasswordCheck = require('./forgetPasswordCheck'); 
+const accountIsActive = require('./accountIsActive');
 
 module.exports = {
   register,
@@ -18,4 +19,5 @@ module.exports = {
   resetPassword,
   changePassword,
   forgetPasswordCheck,
+  accountIsActive,
 }
