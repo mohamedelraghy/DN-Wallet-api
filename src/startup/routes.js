@@ -22,5 +22,5 @@ module.exports = function(app){
     app.use('/api/contacts', contact);
     app.use('/api/verfiy', verfiy);
     app.use('/api/verfiy/email', emailActive);
-    app.use('/api/pay', payment);
+    app.use('/api/payment', payment);
 }

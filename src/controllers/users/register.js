@@ -11,6 +11,8 @@ async function register (req, res) {
   let user = await User.findOne({ email : req.body.email });
   if(user) return res.status(400).json({ "error": "User Already registered" }); 
 
+  
+
   user = new User(_.pick(req.body, ['name', 'email', 'password']));
 
   if(user.password !== req.body.confirm_password) return res.status(400).json({ "error": "password doesn't match" });
