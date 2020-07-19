@@ -1,6 +1,8 @@
-const pay = require('./pay');
+const charge = require('./charge');
+const balance = require('./balance');
 
 
 module.exports = {
-    pay,
+    charge,
+    balance
 }
