@@ -1,7 +1,8 @@
 const bcrypt = require('bcryptjs');
+const config = require('config');
 const _ = require('lodash');
 const { User, validate } = require('../../models/user');
-
+const stripe = require('stripe')(config.get('stripeKey'));
 
 async function register (req, res) {
   
@@ -19,6 +20,15 @@ async function register (req, res) {
 
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
+
+  const customer = await stripe.customers.create({
+    email : req.body.email,
+    name : req.body.name
+  });
+  console.log(customer);
+  if (!customer) return res.status(400).json({ "error": "something goes wornge" });
+
+  user.stripeID = customer.id;
 
   await user.save();
 
