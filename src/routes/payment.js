@@ -11,4 +11,6 @@ router.post('/charge', auth, paymentController.charge);
 
 router.post('/card', auth, paymentController.card);
 
+router.get('/cusomter', auth, paymentController.cusotmer);
+
 module.exports = router;
