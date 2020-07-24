@@ -25,11 +25,10 @@ async function register (req, res) {
     email : req.body.email,
     name : req.body.name
   });
-  console.log(customer);
-  if (!customer) return res.status(400).json({ "error": "something goes wornge" });
 
-  user.stripeID = customer.id;
+  if(!customer) return res.status(400);
 
+  user.stripeID = customer.id
   await user.save();
 
   const token = user.generateAuthToken();
