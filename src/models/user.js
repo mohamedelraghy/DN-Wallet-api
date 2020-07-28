@@ -62,8 +62,7 @@ const userSchema = new mongoose.Schema({
         default : false
     },
     emailCode : String,
-    emailCodeExpiration: Date,
-    stripeID : String,
+    emailCodeExpiration: Date
 });
 
 userSchema.methods.generateAuthToken = function(){
