@@ -6,7 +6,7 @@ async function showAll(req, res){
     const contacts = await Contact.find({ user: userID })
         .populate('user contacts.userID photo', ' -password -photo');
 
-    if (!contacts || contacts.length === 0 || contacts === undefined) return res.status(400).json('No contacts Found');
+    if (!contacts || contacts.length === 0 || contacts === undefined) return res.status(400).json([]);
     
     // sort contacts by name
     if(contacts[0].contacts){
