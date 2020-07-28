@@ -4,7 +4,7 @@ async function showAll(req, res){
 
     const userID = req.user._id;
     const contacts = await Contact.find({ user: userID })
-        .populate('user contacts.userID photo', ' -password -photo');
+        .populate('user contacts.userID', ' -password');
 
     if (!contacts || contacts.length === 0 || contacts === undefined) return res.status(400).json([]);
     
