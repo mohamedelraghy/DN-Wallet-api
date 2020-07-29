@@ -25,7 +25,8 @@ const cardSchema = new mongoose.Schema({
     },
     cardType : {
         type : String
-    }
+    },
+    balance : Number
 });
 
 const Card = mongoose.model('Card', cardSchema);
