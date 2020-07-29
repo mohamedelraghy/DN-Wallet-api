@@ -33,7 +33,7 @@ async function create(req, res){
 
     await contact.save();
 
-    res.status(200).json({ "id": user._id, "email": user.email, "name": user.name });
+    res.status(200).json({ "id": user._id, "email": user.email, "name": user.name, "photo" : user.photo });
     
 }
 
