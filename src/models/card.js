@@ -38,12 +38,13 @@ const Card = mongoose.model('Card', cardSchema);
 
 function validateCard(card) {
     const schema = {
-        cardNumber: Joi.string().trim().regex(/^[0-9]+$/).length(16).require(),
-        expMonth: Joi.string().regex(/^[0-9]+$/).length(2).required(),
-        expYear: Joi.string().regex(/^[0-9]+$/).length(2).required(),
-        cvc: Joi.string().regex(/^[0-9]+$/).length(3).required(),
+        cardNumber: Joi.string().regex(/^[0-9]{16}$/).required(),
+        expMonth: Joi.string().regex(/^[0-9]{16}$/).required(),
+        expYear: Joi.string().regex(/^[0-9]{16}$/).required(),
+        cvc: Joi.string().regex(/^[0-9]{3}$/).required(),
         cardType: Joi.string()
     }
+    return Joi.validate(card, schema);
 }
 
 exports.Card = Card;
