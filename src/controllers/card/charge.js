@@ -1,10 +1,12 @@
 const { Card } = require('../../models/card');
 // const { Bank } = require('../../models/bank');
 const Joi = require('joi');
-const { Schema } = require('mongoose');
 
 
 async function charage(req, res) {
+
+    const { error } = validate(req.body);
+    if(error) return res.status(400).json({ "error" : error.details[0].message});
 
     const card = await Card.findOne({ cardHolder : req.user._id});
     // const bank = await Bank.findOne({ name : "DN-Wallet" });
@@ -21,14 +23,13 @@ async function charage(req, res) {
         }
 
         card.balance.unshift(balance);
-    } else {
-
+    } else {    
         found.amount += req.body.amount;
     }
 
     await card.save();
 
-    console.log(card);
+    
     return res.status(200).json(card);
 }
 
