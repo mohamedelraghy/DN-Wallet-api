@@ -50,11 +50,7 @@ function validateCard(card) {
         expYear: Joi.string().regex(/^[0-9]{4}$/).required(),
         cvc: Joi.string().regex(/^[0-9]{3}$/).required(),
         cardType: Joi.string(),
-        amount: Joi.number().required(),
-        currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY', 'SAR').required()
-
     }
-    
     return Joi.validate(card, schema);
 }
 
