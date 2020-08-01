@@ -8,5 +8,7 @@ router.get('/', auth, cardController.cards);
 
 router.post('/', auth, cardController.createCard);
 
+router.post('/charge', auth, cardController.charge);
+
 
 module.exports = router;
