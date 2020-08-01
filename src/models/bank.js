@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 const bankSchema = new mongoose.Schema({
-    name : String,
+    name : {
+        type : String,
+        required : true
+    },
     balace : [{
         amount : Number,
         currency_code : {
@@ -16,6 +19,7 @@ const Bank = mongoose.model('Bank', bankSchema);
 
 function validateBank(bank){
     const schema = {
+        name : Joi.string().required(),
         amount : Joi.number().required(),
         currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY', 'SAR')
     }
