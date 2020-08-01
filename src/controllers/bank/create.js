@@ -11,7 +11,7 @@ async function createBank(req, res) {
 
     bank = new Bank(_.pick(req.body, ['name']));
 
-    console.log(bank);
+    
     const balance = {
         amount: req.body.amount,
         currency_code: req.body.currency_code
