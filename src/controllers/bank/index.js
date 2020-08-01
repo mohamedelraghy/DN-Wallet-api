@@ -1,6 +1,8 @@
 const createBank = require('./create');
+const chargeBank = require('./ChargeBank');
 
 
 module.exports = {
-    createBank
+    createBank,
+    chargeBank
 }
