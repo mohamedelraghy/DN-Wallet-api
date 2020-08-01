@@ -10,7 +10,7 @@ async function chargeBank(req, res) {
     if(!bank) return res.status(400).json({ "error" : "Bank not found" });
     
     const found = bank.balance.find(balance => balance.currency_code == req.body.currency_code);
-    console.log( 'bank = ',found);
+    
     if (!found) {
         const balance = {
             amount: req.body.amount,
