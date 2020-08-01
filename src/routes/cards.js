@@ -10,5 +10,7 @@ router.post('/', auth, cardController.createCard);
 
 router.post('/charge', auth, cardController.charge);
 
+router.post('/transfer/:id', auth, cardController.transfer);
+
 
 module.exports = router;
