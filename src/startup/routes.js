@@ -6,6 +6,7 @@ const contact = require('../routes/userContacts');
 const verfiy = require('../routes/twilioVerfiy');
 const emailActive = require('../routes/activeEmail');
 const cards = require('../routes/cards');
+const bank = require('../routes/banks');
 
 module.exports = function(app){
     app.use(express.json());
@@ -23,4 +24,5 @@ module.exports = function(app){
     app.use('/api/verfiy', verfiy);
     app.use('/api/verfiy/email', emailActive);
     app.use('/api/cards', cards);
+    app.use('/api/bank', bank);
 }
