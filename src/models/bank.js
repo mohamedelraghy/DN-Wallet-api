@@ -19,7 +19,8 @@ function validateBank(bank){
         amount : Joi.number().required(),
         currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY', 'SAR')
     }
-    
+
+    return Joi.validate(bank, schema);
 }
 
 exports.Bank = Bank;
