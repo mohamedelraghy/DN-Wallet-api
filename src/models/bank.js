@@ -6,11 +6,12 @@ const bankSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    balace : [{
+    balance : [{
         amount : Number,
         currency_code : {
             type : String,
             enum: ['EGP', 'USD', 'EUR', 'JPY', 'SAR', null],
+            required : true
         }
     }]
 });
@@ -21,7 +22,7 @@ function validateBank(bank){
     const schema = {
         name : Joi.string().required(),
         amount : Joi.number().required(),
-        currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY', 'SAR')
+        currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY', 'SAR').required()
     }
 
     return Joi.validate(bank, schema);
