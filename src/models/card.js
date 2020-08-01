@@ -43,6 +43,7 @@ function validateCard(card) {
         expYear: Joi.string().regex(/^[0-9]{16}$/).required(),
         cvc: Joi.string().regex(/^[0-9]{3}$/).required(),
         cardType: Joi.string()
+        
     }
     return Joi.validate(card, schema);
 }
