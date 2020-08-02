@@ -62,7 +62,11 @@ const userSchema = new mongoose.Schema({
         default : false
     },
     emailCode : String,
-    emailCodeExpiration: Date
+    emailCodeExpiration: Date,
+    cardID : [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Card'
+    }]
 });
 
 userSchema.methods.generateAuthToken = function(){
