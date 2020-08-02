@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 const cardSchema = new mongoose.Schema({
-    cardHolder : {
-        type: mongoose.Types.ObjectId,
-        ref: 'User'
-    },
     cardNumber : {
         type : String,
         length : 16,
