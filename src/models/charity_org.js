@@ -44,7 +44,11 @@ const charitySchema = new mongoose.Schema({
         lan : {
             type : Number
         }
-    }
+    },
+    cardID: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Card'
+    }]
 });
 
 const Charity = mongoose.model('Charity', charitySchema);
