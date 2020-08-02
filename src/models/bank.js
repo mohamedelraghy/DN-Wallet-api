@@ -21,7 +21,7 @@ const Bank = mongoose.model('Bank', bankSchema);
 function validateBank(bank){
     const schema = {
         name : Joi.string().required(),
-        amount : Joi.number().required(),
+        amount : Joi.number().required().positive(),
         currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY', 'SAR').required()
     }
 
