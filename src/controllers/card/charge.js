@@ -35,7 +35,7 @@ async function charage(req, res) {
 
 function validate(req){
     const schema = {
-        amount: Joi.number().required(),
+        amount: Joi.number().required().positive(),
         currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY', 'SAR').required()
     }
     return Joi.validate(req, schema);
