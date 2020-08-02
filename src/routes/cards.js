@@ -6,7 +6,9 @@ const cardController = require('../controllers/card');
 
 router.get('/', auth, cardController.cards);
 
-router.post('/', auth, cardController.createCard);
+router.post('/', auth, cardController.createCard); // create card for user
+
+router.post('/:charityID', auth, cardController.createCard); // create card for charity
 
 router.post('/charge', auth, cardController.charge);
 
