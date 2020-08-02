@@ -13,8 +13,6 @@ async function charage(req, res) {
     
     if(!card) return res.status(400).json({ "error" : "User have no Card" });
     
-    if(req.body.amount <= 0) return res.status(400).json({ "error" : "amount can't be 0 or negative number"});
-
     const found = card.balance.find(balance => balance.currency_code == req.body.currency_code);
     if (!found) {
         const balance = {
