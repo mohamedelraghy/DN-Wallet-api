@@ -1,3 +1,7 @@
+const Web3 = require('web3');
+const web3 = new Web3('https://rinkeby.infura.io/v3/0c43e1f8e5434b2ab24b6b1bcbad393b');
+
+
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const _ = require('lodash');
@@ -19,12 +23,17 @@ async function register (req, res) {
 
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
-
+  createAccountsOnNetwork(user.email);
   await user.save();
 
   const token = user.generateAuthToken();
   res.status(200).header('x-auth-token', token).json({ "token": token, "id": user._id });
   
 }
-
+const createAccountsOnNetwork = async (uniqeEmail) =>
+{
+  const newUser = await web3.eth.accounts.create();
+  const jsonForAccount = await web3.eth.accounts.encrypt(newUser['privateKey'],uniqeEmail); // Must save 
+  const publicKey = newUser['address']; //Must save
+}
 module.exports = register;  
