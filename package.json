@@ -43,6 +43,7 @@
     "npm-check-updates": "^7.0.1",
     "npm-registry-fetch": "^8.1.2",
     "twilio": "^3.48.0",
+    "web3": "^1.2.11",
     "winston": "^3.3.3",
     "winston-mongodb": "^5.0.1"
   },
