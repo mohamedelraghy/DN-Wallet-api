@@ -23,12 +23,17 @@ async function createCard(req, res){
         if(!charity) return res.status(400).json({ "error" : "No charity with the given ID" });
         
         charity.cardID = card._id;
+        
         await card.save();
-    }
-    const user = await User.findById(req.user._id);
-    user.cardID = card._id;
+    }else {
 
-    await user.save();
+        const user = await User.findById(req.user._id);
+        if(!user) return res.status(400).json({ "error" : "No user with the given ID" });
+        
+        user.cardID = card._id;
+    
+        await user.save();
+    }
     await card.save();
 
     return res.status(200).json(card);
