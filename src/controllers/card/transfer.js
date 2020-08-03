@@ -1,6 +1,6 @@
-const { Card } = require('../../models/card');
 const ObjectId = require('mongoose').Types.ObjectId;
 const Joi = require('joi');
+const { User } = require('../../models/user');
 
 
 async function transfer(req, res) {
@@ -15,10 +15,10 @@ async function transfer(req, res) {
     
     if(cardHolder == transferTo) return res.status(400).json({ "error" : "you cannot transfer to your self" });
 
-    // const senderCard = await Card.findOne({ cardHolder : cardHolder });
-    // const resiverCard = await Card.findOne({ cardHolder : transferTo });
+    const sender = await User.findById(cardHolder).select("cards cryptedAcc publicKey");
+    const resiver = await User.findOne(transferTo).select("cards cryptedAcc publicKey");
 
-    // if(!senderCard || !resiverCard) return res.status(400).json({ "error" : "cannot send money" });
+    if(!sender || !resiver) return res.status(400).json({ "error" : "cannot send money" });
 
     const amount = req.body.amount;
     const currency = req.body.currency_code;

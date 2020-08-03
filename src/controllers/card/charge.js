@@ -97,7 +97,7 @@ const chargeAccount = async(toAddress,amount,currency) => {
     data: ChargeFunctionData
     }
     const tx = new Tx(txObject,{'chain':'rinkeby'});
-    tx1.sign(privateKey);
+    tx.sign(privateKey);
     const serializedTx = tx.serialize();
     const raw = '0x' + serializedTx.toString('hex');
     const txHash1 = web3.eth.sendSignedTransaction(raw);
