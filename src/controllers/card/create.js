@@ -23,7 +23,7 @@ async function createCard(req, res) {
         const charity = await Charity.findById(charityID);
         if (!charity) return res.status(400).json({ "error": "No charity with the given ID" });
 
-        charity.cardID.unshift(card._id);
+        charity.cards.unshift({ cardID: card._id });
 
         await charity.save();
     
@@ -31,11 +31,12 @@ async function createCard(req, res) {
 
         const user = await User.findById(req.user._id);
         if (!user) return res.status(400).json({ "error": "No user with the given ID" });
-
-        user.cardID.unshift(card._id);
+        
+        user.cards.unshift({ cardID: card._id });
 
         await user.save();
     }
+
     await card.save();
 
     return res.status(200).json(card);
