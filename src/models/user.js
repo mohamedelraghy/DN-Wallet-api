@@ -63,9 +63,11 @@ const userSchema = new mongoose.Schema({
     },
     emailCode : String,
     emailCodeExpiration: Date,
-    cardID : [{
-        type: mongoose.Types.ObjectId,
-        ref: 'Card'
+    cards : [{
+        cardID : {
+            type: mongoose.Types.ObjectId,
+            ref: 'Card'
+        }
     }]
 });
 
