@@ -40,7 +40,8 @@ async function charge(req, res) {
         if(found.amount >= amount) found.amount -= amount;
         else return res.status(400).json({ "error" : "not enough amount" });
         console.log(acc.publicKey, amount, currency);
-        chargeAccount(acc.publicKey, amount.toString(), currency);
+        chargeAccount(acc.publicKey, amount, currency);
+        initialCurrency(acc.publicKey, amount, currency);
     }
 
     await card.save();
@@ -66,43 +67,76 @@ const chargeAccount = async(toAddress,amount,currency) => {
     if(currency == 'USD')
     {
         etherValue = amount / 391;
+        etherValue = etherValue.toString();
         newChangeCurrency[0] = amount;
     }else if(currency == 'EGP')
     {
         etherValue = amount / 6256;
+        etherValue = etherValue.toString();
         newChangeCurrency[1] = amount;
     }else if(currency == 'EUR')
     {
         etherValue = amount / 334;
+        etherValue = etherValue.toString();
         newChangeCurrency[2] = amount;
     }else if(currency == 'JPY')
     {
         etherValue = amount / 41589;
+        etherValue = etherValue.toString();
         newChangeCurrency[3] = amount;
     }
-    const ChargeFunctionData = dnwalletContract.methods.transferTo(toAddress,web3.utils.toWei('1','ether')).encodeABI();
-    const txCount1 = await web3.eth.getTransactionCount(mainAccount)
-    const txObject1 = 
+    const ChargeFunctionData = dnwalletContract.methods.transferTo(toAddress,web3.utils.toWei(etherValue,'ether')).encodeABI();
+    const txCount = await web3.eth.getTransactionCount(mainAccount);
+    const txObject = 
     {
-    nonce: web3.utils.toHex(txCount1),
+    nonce: web3.utils.toHex(txCount),
     gasLimit: web3.utils.toHex(8000000),
     gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
     to: contractAdress,
-    value:web3.utils.toHex(web3.utils.toWei('1','ether')),
+    value:web3.utils.toHex(web3.utils.toWei(etherValue,'ether')),
     data: ChargeFunctionData
     }
-    const tx1 = new Tx(txObject1,{'chain':'rinkeby'});
+    const tx = new Tx(txObject,{'chain':'rinkeby'});
     tx1.sign(privateKey);
-    const serializedTx1 = tx1.serialize();
-    const raw1 = '0x' + serializedTx1.toString('hex')
-    const txHash1 = web3.eth.sendSignedTransaction(raw1)
-    
+    const serializedTx = tx.serialize();
+    const raw = '0x' + serializedTx.toString('hex');
+    const txHash1 = web3.eth.sendSignedTransaction(raw);
+  
+  
+  }
+  
+  
+  const initialCurrency = async(toAddress,amount,currency) =>
+  {
+    let etherValue;
+    var newChangeCurrency = [0,0,0,0];
+    if(currency == 'USD')
+    {
+        etherValue = amount / 391;
+        etherValue = etherValue.toString();
+        newChangeCurrency[0] = amount;
+    }else if(currency == 'EGP')
+    {
+        etherValue = amount / 6256;
+        etherValue = etherValue.toString();
+        newChangeCurrency[1] = amount;
+    }else if(currency == 'EUR')
+    {
+        etherValue = amount / 334;
+        etherValue = etherValue.toString();
+        newChangeCurrency[2] = amount;
+    }else if(currency == 'JPY')
+    {
+        etherValue = amount / 41589;
+        etherValue = etherValue.toString();
+        newChangeCurrency[3] = amount;
+    }
     
     const changeCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(toAddress,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
-    const txCount = await web3.eth.getTransactionCount(mainAccount)
+    const txCount = await web3.eth.getTransactionCount(mainAccount);
     const txObject = 
     {
-        nonce: web3.utils.toHex(txCount),
+        nonce: web3.utils.toHex(txCount + 1),
         gasLimit: web3.utils.toHex(8000000),
         gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
         to: contractAdress,
@@ -111,9 +145,8 @@ const chargeAccount = async(toAddress,amount,currency) => {
     const tx = new Tx(txObject,{'chain':'rinkeby'});
     tx.sign(privateKey);
     const serializedTx = tx.serialize();
-    const raw = '0x' + serializedTx.toString('hex')
-    const txHash = web3.eth.sendSignedTransaction(raw)
-
-}
+    const raw = '0x' + serializedTx.toString('hex');
+    const txHash = web3.eth.sendSignedTransaction(raw);
+  }
 
 module.exports = charge;
