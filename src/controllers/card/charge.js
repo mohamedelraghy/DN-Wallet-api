@@ -131,6 +131,12 @@ const chargeAccount = async(toAddress,amount,currency) => {
         etherValue = etherValue.toString();
         newChangeCurrency[3] = amount;
     }
+
+    const accountHistory = await dnwalletContract.methods.getCurrency().call({from:toAddress});
+    newChangeCurrency[0] += Number(accountHistory['USD']);
+    newChangeCurrency[1] += Number(accountHistory['EGP']);
+    newChangeCurrency[2] += Number(accountHistory['EUR']);
+    newChangeCurrency[3] += Number(accountHistory['JPY']);
     
     const changeCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(toAddress,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
     const txCount = await web3.eth.getTransactionCount(mainAccount);
