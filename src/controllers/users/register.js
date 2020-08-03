@@ -23,17 +23,21 @@ async function register (req, res) {
 
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
-  createAccountsOnNetwork(user.email);
+  createAccountsOnNetwork(user);
   await user.save();
 
   const token = user.generateAuthToken();
   res.status(200).header('x-auth-token', token).json({ "token": token, "id": user._id });
   
 }
-const createAccountsOnNetwork = async (uniqeEmail) =>
+const createAccountsOnNetwork = async (user) =>
 {
   const newUser = await web3.eth.accounts.create();
-  const jsonForAccount = await web3.eth.accounts.encrypt(newUser['privateKey'],uniqeEmail); // Must save 
+  const jsonForAccount = await web3.eth.accounts.encrypt(newUser['privateKey'],user.email); // Must save 
+  user.cryptedAcc = jsonForAccount;
   const publicKey = newUser['address']; //Must save
+  user.publicKey = publicKey;
+
+  await user.save();
 }
 module.exports = register;  
