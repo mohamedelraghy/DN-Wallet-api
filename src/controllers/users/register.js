@@ -37,7 +37,5 @@ const createAccountsOnNetwork = async (user) =>
   user.cryptedAcc = jsonForAccount;
   const publicKey = newUser['address']; //Must save
   user.publicKey = publicKey;
-
-  await user.save();
 }
 module.exports = register;  
