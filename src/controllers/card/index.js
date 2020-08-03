@@ -1,5 +1,5 @@
 const createCard = require('./create');
-const cards  = require('./userCards');
+const cards  = require('./cardinfo');
 const charge = require('./charge');
 const transfer = require('./transfer');
 
