@@ -30,7 +30,7 @@ async function withdraw(req, res) {
 
     card.save();
 
-    return res.status(400).json({ "success" : "Transaction Done successfully" });
+    return res.status(400).json(card);
 }
 
 function validate(req) {

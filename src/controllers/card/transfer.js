@@ -45,7 +45,7 @@ async function transfer(req, res) {
     // await senderCard.save();
     // await resiverCard.save();
     
-    return res.status(200).json({ "success" : "Transaction done successfully" });
+    return res.status(200).json(card);
 }
 
 function validate(req) {
