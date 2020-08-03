@@ -15,32 +15,35 @@ async function transfer(req, res) {
     
     if(cardHolder == transferTo) return res.status(400).json({ "error" : "you cannot transfer to your self" });
 
-    const senderCard = await Card.findOne({ cardHolder : cardHolder });
-    const resiverCard = await Card.findOne({ cardHolder : transferTo });
+    // const senderCard = await Card.findOne({ cardHolder : cardHolder });
+    // const resiverCard = await Card.findOne({ cardHolder : transferTo });
 
-    if(!senderCard || !resiverCard) return res.status(400).json({ "error" : "cannot send money" });
+    // if(!senderCard || !resiverCard) return res.status(400).json({ "error" : "cannot send money" });
 
-    let found = senderCard.balance.find(balance => balance.currency_code == req.body.currency_code);
-    if (!found) {
-        return res.status(400).json({ "error": "currency not avalible" });
-    } else {
-        found.amount -= req.body.amount;
-    }
+    const amount = req.body.amount;
+    const currency = req.body.currency_code;
 
-    found = resiverCard.balance.find(balance => balance.currency_code == req.body.currency_code);
-    if (!found) {
-        const balance = {
-            amount: req.body.amount,
-            currency_code: req.body.currency_code
-        }
-        resiverCard.balance.unshift(balance);
+    // let found = senderCard.balance.find(balance => balance.currency_code == req.body.currency_code);
+    // if (!found) {
+    //     return res.status(400).json({ "error": "currency not avalible" });
+    // } else {
+    //     found.amount -= req.body.amount;
+    // }
+
+    // found = resiverCard.balance.find(balance => balance.currency_code == req.body.currency_code);
+    // if (!found) {
+    //     const balance = {
+    //         amount: req.body.amount,
+    //         currency_code: req.body.currency_code
+    //     }
+    //     resiverCard.balance.unshift(balance);
         
-    } else {
-        found.amount += req.body.amount;
-    }
+    // } else {
+    //     found.amount += req.body.amount;
+    // }
 
-    await senderCard.save();
-    await resiverCard.save();
+    // await senderCard.save();
+    // await resiverCard.save();
     
     return res.status(200).json({ "success" : "Transaction done successfully" });
 }
