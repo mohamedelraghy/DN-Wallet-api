@@ -12,7 +12,7 @@ async function withdraw(req, res) {
     const currency = req.body.currency_code;
     
     const user = await User.findById(req.user._id).select("cards cryptedAcc publicKey");
-    if(!user) res.status(400).json({ "error" : "User not fount" });
+    if(!user) return res.status(400).json({ "error" : "User not fount" });
 
     const cardID = req.params.cardID;
     if(!ObjectId.isValid(cardID)) return res.status(400).json({"error" : "Invalid ID"});
