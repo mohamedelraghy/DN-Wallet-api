@@ -16,7 +16,7 @@ async function charge(req, res) {
         .populate("cards.cardID").select("cards cryptedAcc publicKey");
    
     const cardID = req.params.cardID;
-    console.log(cardID);
+    
     if (!ObjectId.isValid(cardID)) return res.status(400).json({ "error" : "Invalid ID"});
 
     const card = await Card.findById(cardID);
