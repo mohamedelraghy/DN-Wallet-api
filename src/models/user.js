@@ -68,7 +68,11 @@ const userSchema = new mongoose.Schema({
             type: mongoose.Types.ObjectId,
             ref: 'Card'
         }
-    }]
+    }], 
+    cryptedAcc : {
+        type : Object
+    },
+    publicKey: String
 });
 
 userSchema.methods.generateAuthToken = function(){
