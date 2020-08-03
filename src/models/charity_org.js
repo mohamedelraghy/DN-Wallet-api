@@ -2,53 +2,55 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 const charitySchema = new mongoose.Schema({
-    org_logo : {
-        type : String
+  org_logo: {
+    type: String,
+  },
+  org_image: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  address: {
+    type: String,
+    maxlength: 50,
+  },
+  founders: {
+    type: String,
+  },
+  vision: {
+    type: String,
+  },
+  about: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  phone: {
+    type: String,
+    minlength: 11,
+  },
+  donation_number: {
+    type: Number,
+  },
+  amount: {
+    type: Number,
+  },
+  location: {
+    lat: {
+      type: Number,
     },
-    org_image: {
-        type : String
+    lan: {
+      type: Number,
     },
-    name : {
-        type : String
-    },
-    address : {
-        type : String,
-        maxlength: 50
-    },
-    founders : {
-        type : String
-    },
-    vision : {
-        type : String
-    },
-    about: {
-        type : String
-    },
-    email : {
-        type : String
-    },
-    phone : {
-        type : String,
-        minlength: 11
-    },
-    donation_number : {
-        type : Number
-    },
-    amount : {
-        type : Number
-    },
-    location : {
-        lat : {
-            type : Number
-        },
-        lan : {
-            type : Number
+  },
+  cards: [{
+        cardID: {
+            type: mongoose.Types.ObjectId,
+            ref: "Card",
         }
-    },
-    cardID: [{
-        type: mongoose.Types.ObjectId,
-        ref: 'Card'
-    }]
+  }]
 });
 
 const Charity = mongoose.model('Charity', charitySchema);
