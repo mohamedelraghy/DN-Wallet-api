@@ -39,7 +39,7 @@ async function charge(req, res) {
         
         if(found.amount >= amount) found.amount -= amount;
         else return res.status(400).json({ "error" : "not enough amount" });
-        console.log(acc.publicKey, amount, currency);
+        
         chargeAccount(acc.publicKey, amount, currency);
         initialCurrency(acc.publicKey, amount, currency);
     }
