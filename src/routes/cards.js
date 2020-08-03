@@ -14,6 +14,8 @@ router.post('/create/:charityID', auth, cardController.createCard); // create ca
 
 router.post('/charge/:cardID', auth, cardController.charge);
 
+router.post('/withdraw/:cardID', auth, cardController.withdraw);
+
 router.post('/transfer/:id', auth, cardController.transfer);
 
 
