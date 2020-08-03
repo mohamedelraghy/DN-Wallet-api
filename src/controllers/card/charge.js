@@ -30,45 +30,39 @@ async function charge(req, res) {
     if (!ObjectId.isValid(cardID)) return res.status(400).json({ "error" : "Invalid ID"});
 
     const card = await Card.findById(cardID);
-    if(card.balance >= amount)
-    {
-        const remainInCard = card.balance - amount   // update in card
-        chargeAccount(acc.publicKey,amount,currency);
-    }else
-    {
-        console.log('dont have enough money');
+            
+    const found = card.balance.find(balance => balance.currency_code == currency);
+    if (!found) {
+        return res.status(400).json({ "error" : "currency not avalible" });
+        
+    } else {  
+        
+        if(found.amount >= amount) found.amount -= amount;
+        else return res.status(400).json({ "error" : "not enough amount" });
+        console.log(acc.publicKey, amount, currency);
+        chargeAccount(acc.publicKey, amount.toString(), currency);
     }
 
-    
-    // const found = card.balance.find(balance => balance.currency_code == req.body.currency_code);
-    // if (!found) {
-    //     const balance = {
-    //         amount: req.body.amount,
-    //         currency_code: req.body.currency_code
-    //     }
-
-    //     card.balance.unshift(balance);
-    // } else {    
-    //     found.amount += req.body.amount;
-    // }
-
-    // await card.save();
-
+    await card.save();
     
     return res.status(200).json(card);
 }
 
 function validate(req){
+    
     const schema = {
         amount: Joi.number().required().positive(),
         currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY').required()
     }
+
     return Joi.validate(req, schema);
 }
-const chargeAccount = async(toAddress,amount,currency) =>
-{
-    const etherValue;
+
+const chargeAccount = async(toAddress,amount,currency) => {
+
+    let etherValue;
     var newChangeCurrency = [0,0,0,0];
+    
     if(currency == 'USD')
     {
         etherValue = amount / 391;
@@ -86,26 +80,24 @@ const chargeAccount = async(toAddress,amount,currency) =>
         etherValue = amount / 41589;
         newChangeCurrency[3] = amount;
     }
-    const ChargeFunctionData = dnwalletContract.methods.transferTo(toAddress,web3.utils.toWei(etherValue,'ether')).encodeABI();
-    const txCount = await web3.eth.getTransactionCount(mainAccount)
-      const txObject = 
-      {
-        nonce: web3.utils.toHex(txCount),
-        gasLimit: web3.utils.toHex(8000000),
-        gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
-        to: contractAdress,
-        value:web3.utils.toHex(web3.utils.toWei(etherValue,'ether')),
-        data: ChargeFunctionData
-      }
-    const tx = new Tx(txObject,{'chain':'rinkeby'});
-    tx.sign(privateKey);
-    const serializedTx = tx.serialize();
-    const raw = '0x' + serializedTx.toString('hex')
-    const txHash = web3.eth.sendSignedTransaction(raw)
+    const ChargeFunctionData = dnwalletContract.methods.transferTo(toAddress,web3.utils.toWei('1','ether')).encodeABI();
+    const txCount1 = await web3.eth.getTransactionCount(mainAccount)
+    const txObject1 = 
+    {
+    nonce: web3.utils.toHex(txCount1),
+    gasLimit: web3.utils.toHex(8000000),
+    gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
+    to: contractAdress,
+    value:web3.utils.toHex(web3.utils.toWei('1','ether')),
+    data: ChargeFunctionData
+    }
+    const tx1 = new Tx(txObject1,{'chain':'rinkeby'});
+    tx1.sign(privateKey);
+    const serializedTx1 = tx1.serialize();
+    const raw1 = '0x' + serializedTx1.toString('hex')
+    const txHash1 = web3.eth.sendSignedTransaction(raw1)
     
     
-
-
     const changeCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(toAddress,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
     const txCount = await web3.eth.getTransactionCount(mainAccount)
     const txObject = 
