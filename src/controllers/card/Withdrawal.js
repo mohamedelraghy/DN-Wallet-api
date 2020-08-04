@@ -34,8 +34,12 @@ async function withdraw(req, res) {
 
     const found = card.balance.find(balance => balance.currency_code == currency);
     if(!found) {
-        found.amount = amount;
-        found.currency_code = currency;
+        const balance = {
+          amount : amount,
+          currency_code : currency
+        }
+        card.balance.unshift(balance);
+        console.log(card.balance);
     } else {
         withdrawFromAccount(user.cryptedAcc,user.email,amount,currency);
         updataingCurrenct(user.cryptedAcc,user.email,amount,currency, 115704);
