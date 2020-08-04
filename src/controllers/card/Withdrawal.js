@@ -21,7 +21,7 @@ async function withdraw(req, res) {
 
     const amount = req.body.amount;
     const currency = req.body.currency_code;
-    
+ 
     const user = await User.findById(req.user._id).select("cards cryptedAcc publicKey email");
     if(!user) res.status(400).json({ "error" : "User not fount" });
 
