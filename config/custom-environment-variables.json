@@ -9,5 +9,6 @@
     "twilio-auth_token" : "DN_Wallet_twilio_auth_token",
     "sendGrid-api_key" : "DN_Wallet_send_grid_api_key",
     "profilePic" : "DN_Wallet_profile_pic_url",
-    "stripeKey" : "STRIPE_TEST_KEY"
+    "stripeKey" : "STRIPE_TEST_KEY",
+    "ethjsPrivateKey" : "ETH_PRIVATE_KEY"
 }

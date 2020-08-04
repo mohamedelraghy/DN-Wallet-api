@@ -9,5 +9,6 @@
     "twilio-auth_token" : "",
     "sendGrid-api_key" : "",
     "profilePic" : "",
-    "stripeKey": "STRIPE_TEST_KEY"
+    "stripeKey": "STRIPE_TEST_KEY",
+    "ethjsPrivateKey" : ""
 }
