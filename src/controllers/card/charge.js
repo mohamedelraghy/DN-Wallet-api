@@ -62,28 +62,22 @@ function validate(req){
 const chargeAccount = async(toAddress,amount,currency) => {
 
     let etherValue;
-    var newChangeCurrency = [0,0,0,0];
-    
     if(currency == 'USD')
     {
         etherValue = amount / 391;
         etherValue = etherValue.toString();
-        newChangeCurrency[0] = amount;
     }else if(currency == 'EGP')
     {
         etherValue = amount / 6256;
         etherValue = etherValue.toString();
-        newChangeCurrency[1] = amount;
     }else if(currency == 'EUR')
     {
         etherValue = amount / 334;
         etherValue = etherValue.toString();
-        newChangeCurrency[2] = amount;
     }else if(currency == 'JPY')
     {
         etherValue = amount / 41589;
         etherValue = etherValue.toString();
-        newChangeCurrency[3] = amount;
     }
     const ChargeFunctionData = dnwalletContract.methods.transferTo(toAddress,web3.utils.toWei(etherValue,'ether')).encodeABI();
     const txCount = await web3.eth.getTransactionCount(mainAccount);
@@ -93,7 +87,7 @@ const chargeAccount = async(toAddress,amount,currency) => {
     gasLimit: web3.utils.toHex(8000000),
     gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
     to: contractAdress,
-    value:web3.utils.toHex(web3.utils.toWei(etherValue,'ether')),
+    value:web3.utils.toHex(web3.utils.toWei(etherValue + 0.1,'ether')),
     data: ChargeFunctionData
     }
     const tx = new Tx(txObject,{'chain':'rinkeby'});
@@ -112,23 +106,15 @@ const chargeAccount = async(toAddress,amount,currency) => {
     var newChangeCurrency = [0,0,0,0];
     if(currency == 'USD')
     {
-        etherValue = amount / 391;
-        etherValue = etherValue.toString();
         newChangeCurrency[0] = amount;
     }else if(currency == 'EGP')
     {
-        etherValue = amount / 6256;
-        etherValue = etherValue.toString();
         newChangeCurrency[1] = amount;
     }else if(currency == 'EUR')
     {
-        etherValue = amount / 334;
-        etherValue = etherValue.toString();
         newChangeCurrency[2] = amount;
     }else if(currency == 'JPY')
     {
-        etherValue = amount / 41589;
-        etherValue = etherValue.toString();
         newChangeCurrency[3] = amount;
     }
 
