@@ -130,7 +130,8 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
       newChangeCurrency[1] = amount;
       treansactionFees =  treansactionFees * 6256;
       newChangeCurrency[1] = Number(accountHistory['EGP']) - (newChangeCurrency[1] + treansactionFees );
-      newChangeCurrency[1] = Math.floor(newChangeCurrency[1]);
+      newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
+
      
     }else if(currency == 'EUR')
     {
