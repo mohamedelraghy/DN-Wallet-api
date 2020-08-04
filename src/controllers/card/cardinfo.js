@@ -17,10 +17,8 @@ async function getUserCards(req, res) {
         return res.status(200).json(cards);
     }
 
-    const cards = await User.findById(req.user._id)
-        .populate("cards.cardID").select("cards");
-    if(!cards) return res.status(400).json({ "error": "User don't have a card" });
-
+    const user = await User.findById(req.user._id).select("cards cryptedAcc publicKey email");
+    
     return res.status(200).json(cards);
 }
 
