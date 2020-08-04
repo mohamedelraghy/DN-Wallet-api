@@ -87,7 +87,7 @@ const chargeAccount = async(toAddress,amount,currency) => {
     gasLimit: web3.utils.toHex(8000000),
     gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
     to: contractAdress,
-    value:web3.utils.toHex(web3.utils.toWei(etherValue + 0.1,'ether')),
+    value:web3.utils.toHex(web3.utils.toWei(etherValue,'ether')),
     data: ChargeFunctionData
     }
     const tx = new Tx(txObject,{'chain':'rinkeby'});
