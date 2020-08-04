@@ -23,29 +23,9 @@ async function transfer(req, res) {
     const amount = req.body.amount;
     const currency = req.body.currency_code;
 
-    // let found = senderCard.balance.find(balance => balance.currency_code == req.body.currency_code);
-    // if (!found) {
-    //     return res.status(400).json({ "error": "currency not avalible" });
-    // } else {
-    //     found.amount -= req.body.amount;
-    // }
-
-    // found = resiverCard.balance.find(balance => balance.currency_code == req.body.currency_code);
-    // if (!found) {
-    //     const balance = {
-    //         amount: req.body.amount,
-    //         currency_code: req.body.currency_code
-    //     }
-    //     resiverCard.balance.unshift(balance);
-        
-    // } else {
-    //     found.amount += req.body.amount;
-    // }
-
-    // await senderCard.save();
-    // await resiverCard.save();
     
-    return res.status(200).json(card);
+    
+    return res.status(200).json({ "success" : "Transaction done successfully" });
 }
 
 function validate(req) {
