@@ -15,8 +15,8 @@ async function transfer(req, res) {
     
     if(cardHolder == transferTo) return res.status(400).json({ "error" : "you cannot transfer to your self" });
 
-    const sender = await User.findById(cardHolder).select("cards cryptedAcc publicKey");
-    const resiver = await User.findOne(transferTo).select("cards cryptedAcc publicKey");
+    const sender = await User.findById(cardHolder).select("cards cryptedAcc publicKey email");
+    const resiver = await User.findOne(transferTo).select("cards cryptedAcc publicKey email");
 
     if(!sender || !resiver) return res.status(400).json({ "error" : "cannot send money" });
 
