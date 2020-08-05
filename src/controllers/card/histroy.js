@@ -13,6 +13,8 @@ async function history(req, res) {
 
     const accountHistory = await dnwalletContract.methods.getHistory().call({from:user.publicKey}); // save History
 
+    return res.status(200).json(accountHistory);
+
 }
 
 
