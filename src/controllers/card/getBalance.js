@@ -10,10 +10,12 @@ const ObjectId = require('mongoose').Types.ObjectId;
 async function getBalance (req, res) {
 
     
-    const CharityID = req.params.CharityID;
+    const CharityID = req.params.charityID;
+    
     let currentBalance;
 
     if(CharityID){
+        
         if (!ObjectId.isValid(CharityID)) return res.status(400).json({ "error": "Invalid ID" });
         
         const charity = await Charity.findById(CharityID).select('cards cryptedAcc publicKey');
@@ -22,14 +24,14 @@ async function getBalance (req, res) {
         currentBalance = await dnwalletContract.methods.getCurrency().call({ from: charity.publicKey });//JSON For balance
         if (!currentBalance) return res.status(400).json({ "error": "cannot show balance" });
 
+    }else{
+        
+        const user = await User.findById(req.user._id).select('cards cryptedAcc publicKey email');
+        if(!user) return res.status(400).json({ "error" : "User with the Given ID is not found" });
+      
+        currentBalance = await dnwalletContract.methods.getCurrency().call({ from: user.publicKey });//JSON For balance
+        if(!currentBalance) return res.status(400).json({ "error": "cannot show balance" });
     }
-
-
-    const user = await User.findById(req.user._id).select('cards cryptedAcc publicKey email');
-    if(!user) return res.status(400).json({ "error" : "User with the Given ID is not found" });
-  
-    currentBalance = await dnwalletContract.methods.getCurrency().call({ from: user.publicKey });//JSON For balance
-    if(!currentBalance) return res.status(400).json({ "error": "cannot show balance" });
 
     const curr = ['EGP', 'USD', 'EUR', 'JPY'];
     const result =[];
