@@ -15,6 +15,13 @@ async function createCard(req, res) {
 
     card = new Card(_.pick(req.body, ['cardNumber', 'expMonth', 'expYear', 'cvc', 'cardType']));
 
+    const curr = ['EGP', 'USD', 'EUR', 'JPY'];
+   
+    curr.forEach(ele => {
+        card.balance.amount = 1000;
+        card.balance.currency_code = ele;
+    });
+
     const charityID = req.params.charityID;
     if (charityID) {
 
