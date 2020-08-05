@@ -17,9 +17,9 @@ async function getUserCards(req, res) {
         return res.status(200).json(cards);
     }
 
-    const user = await User.findById(req.user._id).select("cards cryptedAcc publicKey email");
+    const user = await User.findById(req.user._id).populate("cards.cardID").select("cards cryptedAcc publicKey email");
     
-    return res.status(200).json(cards);
+    return res.status(200).json(user.cards);
 }
 
 module.exports = getUserCards;
