@@ -18,5 +18,9 @@ router.post('/withdraw/:cardID', auth, cardController.withdraw);
 
 router.post('/transfer/:id', auth, cardController.transfer);
 
+router.get('/balance', auth, cardController.getBalance);
+
+router.get('balance/:charityID', cardController.getBalance);
+
 
 module.exports = router;
