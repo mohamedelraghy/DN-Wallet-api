@@ -20,7 +20,7 @@ async function withdraw(req, res) {
     const { error } = validate(req.body);
     if(error) res.status(400).json({ "error" : error.details[0].message });
 
-    const amount = req.body.amount;
+    const amount = Number(req.body.amount);
     const currency = req.body.currency_code;
  
     const user = await User.findById(req.user._id).select("cards cryptedAcc publicKey email");
