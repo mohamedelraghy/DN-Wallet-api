@@ -45,10 +45,15 @@ async function create(req, res){
         
         charity.donation_number = 0;
         charity.amount = 0;
-    
+
+
+        const newCharity = await web3.eth.accounts.create();
+        const jsonForCharity = await web3.eth.accounts.encrypt(newCharity['privateKey'],'charity'); // Must save 
+        const publicKey = newCharity['address']; //Must save
+
+
         await charity.save()
         res.status(200).json(charity)
     });
 }
-
 module.exports = create;
