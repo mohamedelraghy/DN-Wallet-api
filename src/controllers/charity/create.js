@@ -1,3 +1,8 @@
+var Tx = require('ethereumjs-tx').Transaction;
+const Web3 = require('web3');
+const web3 = new Web3('https://rinkeby.infura.io/v3/0c43e1f8e5434b2ab24b6b1bcbad393b');
+
+
 const { Charity, validate } = require('../../models/charity_org');
 const _ = require('lodash');
 const formidable = require('formidable');
