@@ -39,7 +39,7 @@ async function withdraw(req, res) {
           currency_code : currency
         }
         card.balance.unshift(balance);
-        console.log(card.balance);
+        
     } else {
         withdrawFromAccount(user.cryptedAcc,user.email,amount,currency); // check if returns 0
         updataingCurrency(user.cryptedAcc,user.email,amount,currency, 115704);
