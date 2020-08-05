@@ -18,8 +18,11 @@ async function createCard(req, res) {
     const curr = ['EGP', 'USD', 'EUR', 'JPY'];
    
     curr.forEach(ele => {
-        card.balance.amount = 1000;
-        card.balance.currency_code = ele;
+        const balance = {
+            amount : 1000,
+            currency_code : ele
+        }
+        card.balance.unshift(balance);
     });
 
     const charityID = req.params.charityID;
