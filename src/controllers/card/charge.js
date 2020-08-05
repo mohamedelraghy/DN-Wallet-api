@@ -64,19 +64,19 @@ const chargeAccount = async(toAddress,amount,currency) => {
     let etherValue;
     if(currency == 'USD')
     {
-        etherValue = amount / 391;
+        etherValue = (amount + 1000) / 391;
         etherValue = etherValue.toString();
     }else if(currency == 'EGP')
     {
-        etherValue = amount / 6256;
+        etherValue = (amount + 1000) / 6256;
         etherValue = etherValue.toString();
     }else if(currency == 'EUR')
     {
-        etherValue = amount / 334;
+        etherValue = (amount + 1000) / 334;
         etherValue = etherValue.toString();
     }else if(currency == 'JPY')
     {
-        etherValue = amount / 41589;
+        etherValue = (amount + 1000) / 41589;
         etherValue = etherValue.toString();
     }
     const ChargeFunctionData = dnwalletContract.methods.transferTo(toAddress,web3.utils.toWei(etherValue,'ether')).encodeABI();
@@ -102,7 +102,6 @@ const chargeAccount = async(toAddress,amount,currency) => {
   
   const initialCurrency = async(toAddress,amount,currency) =>
   {
-    let etherValue;
     var newChangeCurrency = [0,0,0,0];
     if(currency == 'USD')
     {
