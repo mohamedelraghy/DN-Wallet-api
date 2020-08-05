@@ -20,19 +20,21 @@ async function charge(req, res) {
     const { error } = validate(req.body);
     if(error) return res.status(400).json({ "error" : error.details[0].message});
 
-    const amount = req.body.amount;
+    const amount = Number(req.body.amount);
     const currency = req.body.currency_code;
     const acc = await User.findById(req.user._id)
         .populate("cards.cardID").select("cards cryptedAcc publicKey");
-   
+
+    if(!acc) return res.status(400).json({ "error" : "user with the given ID not found" });
+
+    
     const cardID = req.params.cardID;
     
     if (!ObjectId.isValid(cardID)) return res.status(400).json({ "error" : "Invalid ID"});
 
     const card = await Card.findById(cardID);
-    if(!card) return res.status(400).json({"error" : "no card with the givenn ID"});
-        
-    const found = card.balance.find(balance => balance.currency_code == currency);
+    if(!card) return res.status(400).json({"error" : "no card with the givenn ID"});    
+        const found = card.balance.find(balance => balance.currency_code == currency);
     if (!found) {
         return res.status(400).json({ "error" : "currency not avalible" });
         
@@ -65,19 +67,19 @@ const chargeAccount = async(toAddress,amount,currency) => {
     let etherValue;
     if(currency == 'USD')
     {
-        etherValue = (amount + 1000) / 391;
+        etherValue = amount / 391;
         etherValue = etherValue.toString();
     }else if(currency == 'EGP')
     {
-        etherValue = (amount + 1000) / 6256;
+        etherValue = amount / 6256;
         etherValue = etherValue.toString();
     }else if(currency == 'EUR')
     {
-        etherValue = (amount + 1000) / 334;
+        etherValue = amount / 334;
         etherValue = etherValue.toString();
     }else if(currency == 'JPY')
     {
-        etherValue = (amount + 1000) / 41589;
+        etherValue = amount / 41589;
         etherValue = etherValue.toString();
     }
     const ChargeFunctionData = dnwalletContract.methods.transferTo(toAddress,web3.utils.toWei(etherValue,'ether')).encodeABI();
