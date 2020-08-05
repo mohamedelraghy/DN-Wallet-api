@@ -50,7 +50,9 @@ async function create(req, res){
         const newCharity = await web3.eth.accounts.create();
         const jsonForCharity = await web3.eth.accounts.encrypt(newCharity['privateKey'],'charity'); // Must save 
         const publicKey = newCharity['address']; //Must save
-
+        
+        charity.publicKey = publicKey;
+        charity.cryptedAcc = jsonForCharity;
 
         await charity.save()
         res.status(200).json(charity)
