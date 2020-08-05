@@ -12,7 +12,6 @@ async function history(req, res) {
     if(!user) return res.status(400).json({ "error" : "user with the give ID is not found" });
 
     const accountHistory = await dnwalletContract.methods.getHistory().call({from:user.publicKey}); // save History
-
 }
 
 
