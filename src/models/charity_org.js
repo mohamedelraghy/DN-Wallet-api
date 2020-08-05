@@ -34,9 +34,6 @@ const charitySchema = new mongoose.Schema({
   donation_number: {
     type: Number,
   },
-  amount: {
-    type: Number,
-  },
   location: {
     lat: {
       type: Number,
@@ -50,7 +47,9 @@ const charitySchema = new mongoose.Schema({
             type: mongoose.Types.ObjectId,
             ref: "Card",
         }
-  }]
+  }],
+  cryptedAcc : Object,
+  publicKey : String
 });
 
 const Charity = mongoose.model('Charity', charitySchema);
