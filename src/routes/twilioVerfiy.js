@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 
 const verificationController = require('../controllers/verfiy')
 
-router.get('/', auth, verificationController.sendCode);
-router.post('/', auth, verificationController.codeCheck);
+router.post('/', auth, verificationController.sendCode);
+router.post('/check', auth, verificationController.codeCheck);
 
 module.exports = router;
