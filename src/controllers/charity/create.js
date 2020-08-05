@@ -49,7 +49,6 @@ async function create(req, res){
         }
         
         charity.donation_number = 0;
-        charity.amount = 0;
 
 
         const newCharity = await web3.eth.accounts.create();
