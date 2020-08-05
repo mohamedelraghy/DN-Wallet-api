@@ -41,8 +41,8 @@ async function withdraw(req, res) {
         card.balance.unshift(balance);
         console.log(card.balance);
     } else {
-        withdrawFromAccount(user.cryptedAcc,user.email,amount,currency);
-        updataingCurrenct(user.cryptedAcc,user.email,amount,currency, 115704);
+        withdrawFromAccount(user.cryptedAcc,user.email,amount,currency); // check if returns 0
+        updataingCurrency(user.cryptedAcc,user.email,amount,currency, 115704);
         found.amount += amount;
     }
 
@@ -93,7 +93,7 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
       return 0
     }
 
-    const ChargeFunctionData = dnwalletContract.methods.transferTo(mainAccount,web3.utils.toWei(etherValue,'ether')).encodeABI();
+    const withdrawFunctionData = dnwalletContract.methods.transferTo(mainAccount,web3.utils.toWei(etherValue,'ether')).encodeABI();
     const privKey = userAccount['privateKey'].substring(2)
     const privateKeye = Buffer.from(privKey,'hex');
     
@@ -105,7 +105,7 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
     gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
     to: contractAdress,
     value:web3.utils.toHex(web3.utils.toWei(etherValue,'ether')),
-    data: ChargeFunctionData
+    data: withdrawFunctionData
     }
     const tx = new Tx(txObject,{'chain':'rinkeby'});
     tx.sign(privateKeye);
@@ -116,24 +116,23 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
 
 
 
-  const updataingCurrenct = async(JSONfile,userEmail,amount,currency,gasUsed) =>
+  const updataingCurrency = async(userAccount,amount,currency,gasUsed) =>
   {
-    const userAccount = await web3.eth.accounts.decrypt(JSONfile,userEmail);
     let treansactionFees;
     treansactionFees = gasUsed / 100000000;
     var newChangeCurrency = [0,0,0,0];
-    const accountHistory = await dnwalletContract.methods.getCurrency().call({from:userAccount['address']});
+    const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:userAccount});
     if(currency == 'USD')
     {
       newChangeCurrency[0] = amount;
       treansactionFees =  treansactionFees * 391;
-      newChangeCurrency[0] = Number(accountHistory['USD']) - (newChangeCurrency[0] + treansactionFees );
+      newChangeCurrency[0] = Number(accountCurrency['USD']) - (newChangeCurrency[0] + treansactionFees );
       newChangeCurrency[0] = newChangeCurrency[0].toFixed(0);
     }else if(currency == 'EGP')
     {
       newChangeCurrency[1] = amount;
       treansactionFees =  treansactionFees * 6256;
-      newChangeCurrency[1] = Number(accountHistory['EGP']) - (newChangeCurrency[1] + treansactionFees );
+      newChangeCurrency[1] = Number(accountCurrency['EGP']) - (newChangeCurrency[1] + treansactionFees );
       newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
 
      
@@ -141,17 +140,17 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
     {
       newChangeCurrency[2] = amount;
       treansactionFees =  treansactionFees * 334;
-      newChangeCurrency[2] = Number(accountHistory['EUR']) - (newChangeCurrency[2] + treansactionFees );
+      newChangeCurrency[2] = Number(accountCurrency['EUR']) - (newChangeCurrency[2] + treansactionFees );
       newChangeCurrency[2] = newChangeCurrency[2].toFixed(0);
     }else if(currency == 'JPY')
     {
       newChangeCurrency[3] = amount;
       treansactionFees =  treansactionFees * 41589;
-      newChangeCurrency[3] = Number(accountHistory['JPY']) - (newChangeCurrency[3] + treansactionFees );
+      newChangeCurrency[3] = Number(accountCurrency['JPY']) - (newChangeCurrency[3] + treansactionFees );
       newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
     }
     
-    const changeCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(userAccount['address'],newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
+    const updataingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(userAccount,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
     const txCount = await web3.eth.getTransactionCount(mainAccount);
     const txObject = 
     {
@@ -159,7 +158,7 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
         gasLimit: web3.utils.toHex(8000000),
         gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
         to: contractAdress,
-        data: changeCurrencyFunctionData
+        data: updataingCurrencyFunctionData
     }
     const tx = new Tx(txObject,{'chain':'rinkeby'});
     tx.sign(privateKey);
