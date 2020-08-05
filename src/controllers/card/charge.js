@@ -30,7 +30,8 @@ async function charge(req, res) {
     if (!ObjectId.isValid(cardID)) return res.status(400).json({ "error" : "Invalid ID"});
 
     const card = await Card.findById(cardID);
-            
+    if(!card) return res.status(400).json({"error" : "no card with the givenn ID"});
+        
     const found = card.balance.find(balance => balance.currency_code == currency);
     if (!found) {
         return res.status(400).json({ "error" : "currency not avalible" });
