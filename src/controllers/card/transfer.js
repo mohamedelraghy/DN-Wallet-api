@@ -89,7 +89,7 @@ function validate(req) {
     nonce: web3.utils.toHex(txCount),
     gasLimit: web3.utils.toHex(8000000),
     gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
-    to: contractAdress,
+    to: contractAddress,
     value:web3.utils.toHex(web3.utils.toWei(etherValue,'ether')),
     data: transferFunctionData
     }
@@ -142,7 +142,7 @@ const updataingFromAccountCurrenct = async(FromAddress,amount,currency,gasUsed) 
         nonce: web3.utils.toHex(txCount),
         gasLimit: web3.utils.toHex(8000000),
         gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
-        to: contractAdress,
+        to: contractAddress,
         data: updatingCurrencyFunctionData
     }
     const tx = new Tx(txObject,{'chain':'rinkeby'});
@@ -187,7 +187,7 @@ const updataingFromAccountCurrenct = async(FromAddress,amount,currency,gasUsed) 
         nonce: web3.utils.toHex(txCount + 1),
         gasLimit: web3.utils.toHex(8000000),
         gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
-        to: contractAdress,
+        to: contractAddress,
         data: updatingCurrencyFunctionData
     }
     const tx = new Tx(txObject,{'chain':'rinkeby'});
