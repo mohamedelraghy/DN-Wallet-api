@@ -41,8 +41,8 @@ async function withdraw(req, res) {
         card.balance.unshift(balance);
         
     } else {
-        withdrawFromAccount(user.cryptedAcc,user.email,amount,currency); // check if returns 0
-        updataingCurrency(user.cryptedAcc,user.email,amount,currency, 115704);
+        withdrawFromAccount(res, user.cryptedAcc, user.email, amount,currency); // check if returns 0
+      updataingCurrency(user.publicKey, amount, currency, 115704);
         found.amount += amount;
     }
 
@@ -60,7 +60,7 @@ function validate(req) {
 
     return Joi.validate(req, schema);
 }
-const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
+const withdrawFromAccount = async(res, JSONfile,userEmail,amount,currency) =>
 {
     const userAccount = await web3.eth.accounts.decrypt(JSONfile,userEmail);
     let etherValue;
@@ -90,7 +90,7 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
     }
     if (amount >= balance)
     {
-      return 0
+       return res.status(400).json({ "error": "not enough money" });
     }
 
     const withdrawFunctionData = dnwalletContract.methods.transferTo(mainAccount,web3.utils.toWei(etherValue,'ether')).encodeABI();
@@ -113,8 +113,6 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
     const raw = '0x' + serializedTx.toString('hex');
     const txHash = await web3.eth.sendSignedTransaction(raw);
   }
-
-
 
   const updataingCurrency = async(userAccount,amount,currency,gasUsed) =>
   {
