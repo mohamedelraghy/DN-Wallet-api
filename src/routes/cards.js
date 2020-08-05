@@ -6,11 +6,11 @@ const cardController = require('../controllers/card');
 
 router.get('/', auth, cardController.cards); // card info for user
 
-router.get('/balance', auth, cardController.getBalance);
-
 router.get('/history', auth, cardController.history);
 
-router.get('/balance/:charityID', cardController.getBalance);
+router.get('/balance', auth, cardController.getBalance);
+
+router.get('/balance/:charityID', auth, cardController.getBalance);
 
 router.post('/create', auth, cardController.createCard); // create card for user
 
