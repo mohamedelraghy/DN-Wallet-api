@@ -10,24 +10,26 @@ const privateKey = Buffer.from(config.get('ethjsPrivateKey'), 'hex')
 
 const { Charity } = require('../../models/charity_org');
 const ObjectId = require('mongoose').Types.ObjectId;
+const { User } = require('../../models/user');
 
 async function donate(req, res) {
 
     const amount = Number(req.body.amount);
     const currency = req.body.currency_code;
+
     const id = req.params.id;
     if(!ObjectId.isValid(id)) return res.status(400).json({ "error": "InValid ID" });
 
-    let chariy = await Charity.findById(id).select("publicKey");
+  let chariy = await Charity.findById(id).select("publicKey donation_number");
     if(!chariy) return res.status(400).json({ "error": "Charity with the given ID not found" });
 
     const user = await User.findById(req.user._id).select('cryptedAcc publicKey email');
     if(!user) return res.status(400).json({ "error" : "user with the given ID is not found" });
     
-    donateFromAccount(res,user.cryptedAcc,user.email,amount,currency);
+    donateFromAccount(res,user.cryptedAcc,user.email,amount,chariy.publicKey, currency);
     updataingCurrency(user.publicKey,amount,currency,115704);
-    
-    
+    updatingCharityCurrency(chariy.publicKey, amount, currency);
+
     chariy.donation_number += 1;
    
 
@@ -38,6 +40,7 @@ async function donate(req, res) {
  
 const donateFromAccount = async(res, JSONfile,userEmail,amount,charityAccount,currency) =>
 {
+ 
     const userAccount = await web3.eth.accounts.decrypt(JSONfile,userEmail);
     let etherValue;
     var newChangeCurrency = [0,0,0,0];
@@ -68,7 +71,8 @@ const donateFromAccount = async(res, JSONfile,userEmail,amount,charityAccount,cu
     {
        return res.status(400).json({ "error": "not enough money" });
     }
-
+    
+    
     const donateFunctionData = dnwalletContract.methods.transferTo(charityAccount,web3.utils.toWei(etherValue,'ether'),currency).encodeABI();
     const privKey = userAccount['privateKey'].substring(2)
     const privateKeye = Buffer.from(privKey,'hex');
@@ -79,7 +83,7 @@ const donateFromAccount = async(res, JSONfile,userEmail,amount,charityAccount,cu
     nonce: web3.utils.toHex(txCount),
     gasLimit: web3.utils.toHex(8000000),
     gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
-    to: contractAdress,
+    to: contractAddress,
     value:web3.utils.toHex(web3.utils.toWei(etherValue,'ether')),
     data: donateFunctionData
     }
@@ -131,7 +135,7 @@ const donateFromAccount = async(res, JSONfile,userEmail,amount,charityAccount,cu
         nonce: web3.utils.toHex(txCount),
         gasLimit: web3.utils.toHex(8000000),
         gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
-        to: contractAdress,
+        to: contractAddress,
         data: updataingCurrencyFunctionData
     }
     const tx = new Tx(txObject,{'chain':'rinkeby'});
@@ -141,7 +145,45 @@ const donateFromAccount = async(res, JSONfile,userEmail,amount,charityAccount,cu
     const txHash = web3.eth.sendSignedTransaction(raw);
   }
 
+const updatingCharityCurrency = async (ToAddress, amount, currency) => {
+  var newChangeCurrency = [0, 0, 0, 0];
+  const accountCurrency = await dnwalletContract.methods.getCurrency().call({ from: ToAddress });
+  if (currency == 'USD') {
+    newChangeCurrency[0] = amount;
+    newChangeCurrency[0] = Number(accountCurrency['USD']) + (newChangeCurrency[0]);
+    newChangeCurrency[0] = newChangeCurrency[0].toFixed(0);
+  } else if (currency == 'EGP') {
+    newChangeCurrency[1] = amount;
+    newChangeCurrency[1] = Number(accountCurrency['EGP']) + (newChangeCurrency[1]);
+    newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
 
+
+  } else if (currency == 'EUR') {
+    newChangeCurrency[2] = amount;
+    newChangeCurrency[2] = Number(accountCurrency['EUR']) + (newChangeCurrency[2]);
+    newChangeCurrency[2] = newChangeCurrency[2].toFixed(0);
+  } else if (currency == 'JPY') {
+    newChangeCurrency[3] = amount;
+    newChangeCurrency[3] = Number(accountCurrency['JPY']) + (newChangeCurrency[3]);
+    newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
+  }
+
+  const updatingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(ToAddress, newChangeCurrency[0], newChangeCurrency[1], newChangeCurrency[2], newChangeCurrency[3]).encodeABI();
+  const txCount = await web3.eth.getTransactionCount(mainAccount);
+  const txObject =
+  {
+    nonce: web3.utils.toHex(txCount + 1),
+    gasLimit: web3.utils.toHex(8000000),
+    gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
+    to: contractAddress,
+    data: updatingCurrencyFunctionData
+  }
+  const tx = new Tx(txObject, { 'chain': 'rinkeby' });
+  tx.sign(privateKey);
+  const serializedTx = tx.serialize();
+  const raw = '0x' + serializedTx.toString('hex');
+  const txHash = web3.eth.sendSignedTransaction(raw);
+}
 
 
 module.exports = donate;
