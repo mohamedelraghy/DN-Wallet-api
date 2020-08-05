@@ -8,9 +8,11 @@ router.get('/', auth, cardController.cards); // card info for user
 
 router.get('/balance', auth, cardController.getBalance);
 
+router.get('/history', auth, cardController.history);
+
 router.get('/:charityId', auth, cardController.cards); // card info for cahrity 
 
-router.get('balance/:charityID', cardController.getBalance);
+router.get('/balance/:charityID', cardController.getBalance);
 
 router.post('/create', auth, cardController.createCard); // create card for user
 
