@@ -6,7 +6,11 @@ const cardController = require('../controllers/card');
 
 router.get('/', auth, cardController.cards); // card info for user
 
+router.get('/balance', auth, cardController.getBalance);
+
 router.get('/:charityId', auth, cardController.cards); // card info for cahrity 
+
+router.get('balance/:charityID', cardController.getBalance);
 
 router.post('/create', auth, cardController.createCard); // create card for user
 
@@ -18,9 +22,7 @@ router.post('/withdraw/:cardID', auth, cardController.withdraw);
 
 router.post('/transfer/:id', auth, cardController.transfer);
 
-router.get('/balance', auth, cardController.getBalance);
 
-router.get('balance/:charityID', cardController.getBalance);
 
 
 module.exports = router;
