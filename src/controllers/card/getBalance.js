@@ -9,8 +9,9 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 async function getBalance (req, res) {
 
-
+    
     const CharityID = req.params.CharityID;
+    let currentBalance;
 
     if(CharityID){
         if (!ObjectId.isValid(CharityID)) return res.status(400).json({ "error": "Invalid ID" });
@@ -18,15 +19,16 @@ async function getBalance (req, res) {
         const charity = await Charity.findById(CharityID).select('cards cryptedAcc publicKey');
         if(!charity) return res.status(400).json({ "error": "Charity with the given ID is not found" });
 
-        
-    }
+        currentBalance = await dnwalletContract.methods.getCurrency().call({ from: charity.publicKey });//JSON For balance
+        if (!currentBalance) return res.status(400).json({ "error": "cannot show balance" });
 
+    }
 
 
     const user = await User.findById(req.user._id).select('cards cryptedAcc publicKey email');
     if(!user) return res.status(400).json({ "error" : "User with the Given ID is not found" });
   
-    const currentBalance = await dnwalletContract.methods.getCurrency().call({ from: user.publicKey });//JSON For balance
+    currentBalance = await dnwalletContract.methods.getCurrency().call({ from: user.publicKey });//JSON For balance
     if(!currentBalance) return res.status(400).json({ "error": "cannot show balance" });
 
     const curr = ['EGP', 'USD', 'EUR', 'JPY'];
