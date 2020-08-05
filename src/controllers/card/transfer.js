@@ -30,10 +30,10 @@ async function transfer(req, res) {
 
     const sender = await User.findById(cardHolder).select("cards cryptedAcc publicKey email");
     const resiver = await User.findById(transferTo).select("cards cryptedAcc publicKey email");
-
+    
     if(!sender || !resiver) return res.status(400).json({ "error" : "cannot send money" });
 
-    const amount = req.body.amount;
+    const amount = Number(req.body.amount);
     const currency = req.body.currency_code;
     // check for currency_code
     transferFromAccountTOAnother(sender.cryptedAcc,sender.email,resiver.publicKey,amount,currency);
@@ -135,7 +135,7 @@ const updataingFromAccountCurrenct = async(FromAddress,amount,currency,gasUsed) 
       newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
     }
     
-    const updatingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(userAccount['address'],newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
+  const updatingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(FromAddress,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
     const txCount = await web3.eth.getTransactionCount(mainAccount);
     const txObject = 
     {
@@ -180,11 +180,11 @@ const updataingFromAccountCurrenct = async(FromAddress,amount,currency,gasUsed) 
       newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
     }
     
-    const updatingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(toAddress,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
+    const updatingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(ToAddress,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
     const txCount = await web3.eth.getTransactionCount(mainAccount);
     const txObject = 
     {
-        nonce: web3.utils.toHex(txCount),
+        nonce: web3.utils.toHex(txCount + 1),
         gasLimit: web3.utils.toHex(8000000),
         gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
         to: contractAdress,
