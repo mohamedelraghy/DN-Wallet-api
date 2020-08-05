@@ -3,6 +3,7 @@ const cards  = require('./cardinfo');
 const charge = require('./charge');
 const transfer = require('./transfer');
 const withdraw = require('./Withdrawal');
+const getBalance = require('./getBalance');
 
 
 module.exports = {
@@ -10,5 +11,6 @@ module.exports = {
     cards,
     charge,
     transfer,
-    withdraw
+    withdraw,
+    getBalance
 }
