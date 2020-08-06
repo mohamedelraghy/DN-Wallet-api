@@ -24,7 +24,7 @@ async function transfer(req, res) {
     const cardHolder = req.user._id;
     
     const sender = await User.findById(cardHolder).select("cards cryptedAcc publicKey email");
-    const resiver = await User.findOne({email : req.body.email}).select("cards cryptedAcc publicKey email");
+    const resiver = await User.findOne({ email : req.body.email }).select("cards cryptedAcc publicKey email");
     
     if(!sender || !resiver) return res.status(400).json({ "error" : "cannot send money" });
 
@@ -40,7 +40,8 @@ async function transfer(req, res) {
 function validate(req) {
     const schema = {
         amount: Joi.number().required().positive(),
-        currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY', 'SAR').required()
+        currency_code: Joi.string().valid('EGP', 'USD', 'EUR', 'JPY', 'SAR').required(),
+        email : Joi.string().email().required()
     }
     return Joi.validate(req, schema);
 }
