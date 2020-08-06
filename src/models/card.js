@@ -47,7 +47,7 @@ function validateCard(card) {
         expMonth: Joi.string().regex(/^[0-9]{2}$/).required(),
         expYear: Joi.string().regex(/^[0-9]{4}$/).required(),
         cvc: Joi.string().regex(/^[0-9]{3}$/).required(),
-        cardType: Joi.string(),
+        cardType: Joi.string().required().valid('visa', 'meza', 'mastercard'),
     }
     return Joi.validate(card, schema);
 }
