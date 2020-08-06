@@ -53,7 +53,7 @@ async function createCard(req, res) {
 
     await card.save();
 
-    return res.status(200).json(card);
+    return res.status(200).json({"success" : "card created successfully"});
 }
 
 module.exports = createCard;
