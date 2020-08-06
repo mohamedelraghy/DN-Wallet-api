@@ -25,7 +25,8 @@ const cardSchema = new mongoose.Schema({
     },
     cardType : {
         type : String,
-        required : true
+        required : true,
+        enum: ['visa', 'meza', 'mastercard', null],
     },
     balance: [{
         amount: Number,
