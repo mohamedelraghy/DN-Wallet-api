@@ -8,6 +8,7 @@ const cardSchema = new mongoose.Schema({
         unique : true,
         required : true 
     },
+    last4Num : String,
     expMonth : {
         type : String,
         required : true,
