@@ -13,7 +13,9 @@ async function createCard(req, res) {
     let card = await Card.findOne({ cardNumber: req.body.cardNumber });
     if (card) return res.status(400).json({ "error": "failed to create card" });
 
-    card = new Card(_.pick(req.body, ['cardNumber', 'expMonth', 'expYear', 'cvc', 'cardType']));
+    card = new Card(
+      _.pick(req.body, ["cardNumber", "expMonth", "expYear", "cvc", "cardType"])
+    );
 
     const curr = ['EGP', 'USD', 'EUR', 'JPY'];
    
