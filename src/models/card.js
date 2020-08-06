@@ -24,7 +24,8 @@ const cardSchema = new mongoose.Schema({
         length : 3
     },
     cardType : {
-        type : String
+        type : String,
+        required : true
     },
     balance: [{
         amount: Number,
