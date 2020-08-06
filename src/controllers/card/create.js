@@ -17,6 +17,8 @@ async function createCard(req, res) {
       _.pick(req.body, ["cardNumber", "expMonth", "expYear", "cvc", "cardType"])
     );
 
+    card.last4Num = req.body.cardNumber.slice(12);
+
     const curr = ['EGP', 'USD', 'EUR', 'JPY'];
    
     curr.forEach(ele => {
