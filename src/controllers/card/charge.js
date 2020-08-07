@@ -49,7 +49,7 @@ async function charge(req, res) {
 
     await card.save();
     
-    return res.status(200).json(card);
+    return res.status(200).json({"success" : "charge done successfully" });
 }
 
 function validate(req){
