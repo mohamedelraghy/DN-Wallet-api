@@ -14,23 +14,51 @@ const privateKey = Buffer.from(config.get('ethjsPrivateKey'), 'hex')
 const ObjectId = require('mongoose').Types.ObjectId;
 const Joi = require('joi');
 const { User } = require('../../models/user');
+const { History } = require('../../models/history');
 
 
 async function transfer(req, res) {
 
     const { error } = validate(req.body);
     if (error) return res.status(400).json({ "error": error.details[0].message });
-
+    
+    const amount = Number(req.body.amount);
+    const currency = req.body.currency_code;
     const cardHolder = req.user._id;
     
     const sender = await User.findById(cardHolder).select("cards cryptedAcc publicKey email");
-    const resiver = await User.findOne({ email : req.body.email }).select("cards cryptedAcc publicKey email");
+    const resiver = await User.findOne({ email : req.body.email }).select("_id cards cryptedAcc publicKey email");
     
+    let history = History.find({ accountOwner: cardHolder });
+    if (!history) {
+
+      history = new History({
+        accountOwner: user._id,
+        consumption: 0,
+        send: 0,
+        donate: 0
+      });
+    }
+
+    history.consumption += amount;
+    history.send += amount;  
+
+    const transaction = {
+      to : resiver._id,
+      amount : amount,
+      currencuy_code : currency,
+      date : Date.now(),
+      category : 1,
+      inner_category : 0
+    }
+
+    history.resulte.unshift(transaction);
+    history.save();
     if(!sender || !resiver) return res.status(400).json({ "error" : "cannot send money" });
 
-    const amount = Number(req.body.amount);
-    const currency = req.body.currency_code;
+    
     // check for currency_code
+
     transferFromAccountTOAnother(sender.cryptedAcc,sender.email,resiver.publicKey,amount,currency);
     updataingFromAccountCurrenct(sender.publicKey,amount,currency,115704);
     updataingToAccountCurrenct(resiver.publicKey,amount,currency);

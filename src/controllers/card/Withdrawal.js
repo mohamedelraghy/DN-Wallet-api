@@ -41,9 +41,10 @@ async function withdraw(req, res) {
         card.balance.unshift(balance);
         
     } else {
-        withdrawFromAccount(res, user.cryptedAcc, user.email, amount,currency); // check if returns 0
-      updataingCurrency(user.publicKey, amount, currency, 115704);
         found.amount += amount;
+        
+        withdrawFromAccount(res, user.cryptedAcc, user.email, amount,currency); // check if returns 0
+        updataingCurrency(user.publicKey, amount, currency, 115704);
     }
 
     card.save();
