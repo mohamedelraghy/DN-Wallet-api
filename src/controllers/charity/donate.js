@@ -35,7 +35,6 @@ async function donate(req, res) {
       });
     }
 
-    history.consumption += amount;
     history.donate += amount;  
     
     const transaction = {
