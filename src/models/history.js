@@ -9,7 +9,7 @@ const historySchema = new mongoose.Schema({
         type : Number,
         default : 0
     },
-    send : {
+    recevie : {
         type: Number,
         default : 0
     },
