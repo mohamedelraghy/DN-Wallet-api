@@ -44,7 +44,7 @@ async function donate(req, res) {
       amount: amount,
       currencuy_code: currency,
       date: Date.now(),
-      category: 2,
+      category: 0,
       inner_category: 0
     }
 
