@@ -61,7 +61,7 @@ function validate(req) {
 
     return Joi.validate(req, schema);
 }
-const withdrawFromAccount = async(res, JSONfile,userEmail,amount,currency) =>
+const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
 {
     const userAccount = await web3.eth.accounts.decrypt(JSONfile,userEmail);
     let etherValue;
@@ -70,22 +70,22 @@ const withdrawFromAccount = async(res, JSONfile,userEmail,amount,currency) =>
     let balance;
     if(currency == 'USD')
     {
-        balance = accountCurrency[0];
+        balance = Number(accountCurrency['USD']);
         etherValue = amount / 391;
         etherValue = etherValue.toString();
     }else if(currency == 'EGP')
     {
-        balance = accountCurrency[1];
+        balance = Number(accountCurrency['EGP']);
         etherValue = amount / 6256;
         etherValue = etherValue.toString();
     }else if(currency == 'EUR')
     {
-        balance = accountCurrency[2];
+        balance = Number(accountCurrency['EUR']);
         etherValue = amount / 334;
         etherValue = etherValue.toString();
     }else if(currency == 'JPY')
     {
-        balance = accountCurrency[3];
+        balance = Number(accountCurrency['JPY']);
         etherValue = amount / 41589;
         etherValue = etherValue.toString();
     }
