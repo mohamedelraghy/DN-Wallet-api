@@ -27,16 +27,13 @@ async function transfer(req, res) {
     const cardHolder = req.user._id;
     
     const sender = await User.findById(cardHolder).select("cards cryptedAcc publicKey email");
-    const resiver = await User.findOne({ email : req.body.email }).select("_id cards cryptedAcc publicKey email");
+    const resiver = await User.findOne({ email : req.body.email }).select("_id email cards cryptedAcc publicKey email");
     
-    let history = History.find({ accountOwner: cardHolder });
-    if (!history) {
+    let history = await History.findOne({ accountOwner: cardHolder });
 
+    if (!history) {
       history = new History({
-        accountOwner: user._id,
-        consumption: 0,
-        send: 0,
-        donate: 0
+        accountOwner: cardHolder,
       });
     }
 
@@ -44,16 +41,18 @@ async function transfer(req, res) {
     history.send += amount;  
 
     const transaction = {
-      to : resiver._id,
+      id : resiver._id,
+      email : resiver.email,
       amount : amount,
       currencuy_code : currency,
       date : Date.now(),
       category : 1,
       inner_category : 0
     }
+  
+    history.result.unshift(transaction);
+    await history.save();
 
-    history.resulte.unshift(transaction);
-    history.save();
     if(!sender || !resiver) return res.status(400).json({ "error" : "cannot send money" });
 
     

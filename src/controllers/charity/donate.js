@@ -11,6 +11,7 @@ const privateKey = Buffer.from(config.get('ethjsPrivateKey'), 'hex')
 const { Charity } = require('../../models/charity_org');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { User } = require('../../models/user');
+const { History } = require('../../models/history');
 
 async function donate(req, res) {
 
@@ -20,12 +21,36 @@ async function donate(req, res) {
     const id = req.params.id;
     if(!ObjectId.isValid(id)) return res.status(400).json({ "error": "InValid ID" });
 
-  let chariy = await Charity.findById(id).select("publicKey donation_number");
+    let chariy = await Charity.findById(id).select("email publicKey donation_number");
     if(!chariy) return res.status(400).json({ "error": "Charity with the given ID not found" });
 
     const user = await User.findById(req.user._id).select('cryptedAcc publicKey email');
     if(!user) return res.status(400).json({ "error" : "user with the given ID is not found" });
     
+    let history = await History.findOne({ accountOwner: req.user._id });
+
+    if (!history) {
+      history = new History({
+        accountOwner: req.user._id,
+      });
+    }
+
+    history.consumption += amount;
+    history.donate += amount;  
+    console.log(chariy.email);
+    const transaction = {
+      id: chariy._id,
+      email: chariy.email,
+      amount: amount,
+      currencuy_code: currency,
+      date: Date.now(),
+      category: 2,
+      inner_category: 0
+    }
+
+    history.result.unshift(transaction);
+    await history.save();
+
     donateFromAccount(res,user.cryptedAcc,user.email,amount,chariy.publicKey, currency);
     updataingCurrency(user.publicKey,amount,currency,115704);
     updatingCharityCurrency(chariy.publicKey, amount, currency);
