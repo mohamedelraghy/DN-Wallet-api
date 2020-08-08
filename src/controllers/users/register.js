@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const config = require('config');
 const _ = require('lodash');
 const { User, validate } = require('../../models/user');
+const { History } = require('../../models/history');
 
 async function register (req, res) {
   
@@ -24,12 +25,23 @@ async function register (req, res) {
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   createAccountsOnNetwork(user);
+  
+  const history = new History({
+    accountOwner: user._id,
+    consumption : 0,
+    send : 0,
+    donate : 0
+  });
+
+  
+  await history.save();
   await user.save();
 
   const token = user.generateAuthToken();
   res.status(200).header('x-auth-token', token).json({ "token": token, "id": user._id });
   
 }
+
 const createAccountsOnNetwork = async (user) =>
 {
   const newUser = await web3.eth.accounts.create();
