@@ -59,7 +59,7 @@ async function create(req, res){
         charity.cryptedAcc = jsonForCharity;
 
         await charity.save()
-        res.status(200).json(charity)
+        res.status(200).json({ "success" : "charity created successfully" });
     });
 }
 module.exports = create;

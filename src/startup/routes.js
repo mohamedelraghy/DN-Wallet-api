@@ -1,4 +1,4 @@
-const cors = require("cors");
+const cors = require('cors');
 const express = require('express');
 const users = require('../routes/users');
 const auth = require('../routes/auth');
@@ -19,7 +19,7 @@ module.exports = function(app){
     //     res.header("Access-Control-Allow-Headers", "*");
     //     next();
     // });
-    app.use(cors())
+    app.use(cors());
     app.use('/api/users', users);
     app.use('/api/auth', auth);
     app.use('/api/charity', charity);
