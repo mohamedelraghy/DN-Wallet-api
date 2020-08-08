@@ -49,7 +49,7 @@ async function withdraw(req, res) {
 
     card.save();
 
-    return res.status(200).json({ "success": "charge done successfully" });
+    return res.status(200).json({ "success": "withdraw done successfully" });
 }
 
 function validate(req) {
