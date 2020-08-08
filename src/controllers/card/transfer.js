@@ -9,8 +9,6 @@ const config = require('config');
 const privateKey = Buffer.from(config.get('ethjsPrivateKey'), 'hex')
 
 
-
-
 const ObjectId = require('mongoose').Types.ObjectId;
 const Joi = require('joi');
 const { User } = require('../../models/user');
@@ -38,9 +36,9 @@ async function transfer(req, res) {
     }
 
     history.consumption += amount;
-    history.send += amount;  
+      
 
-    const transaction = {
+    let transaction = {
       id : resiver._id,
       email : resiver.email,
       amount : amount,
@@ -49,15 +47,36 @@ async function transfer(req, res) {
       category : 1,
       inner_category : 0
     }
-  
+
     history.result.unshift(transaction);
+    
+    let ReciverdHistory = await History.findOne({ accountOwner: resiver._id });
+    if (!ReciverdHistory){
+       ReciverdHistory = new History({
+         accountOwner: resiver._id,
+       });
+    }
+
+    ReciverdHistory.recevie += amount;
+
+    transaction = {
+      id: sender._id,
+      email: sender.email,
+      amount: amount,
+      currencuy_code: currency,
+      date: Date.now(),
+      category: 2,
+      inner_category: 0,
+    }
+
+    ReciverdHistory.result.unshift(transaction);
+    
+    await ReciverdHistory.save();
     await history.save();
 
     if(!sender || !resiver) return res.status(400).json({ "error" : "User not found" });
-
     
     // check for currency_code
-
     transferFromAccountTOAnother(sender.cryptedAcc,sender.email,resiver.publicKey,amount,currency);
     updataingFromAccountCurrenct(sender.publicKey,amount,currency,115704);
     updataingToAccountCurrenct(resiver.publicKey,amount,currency);
