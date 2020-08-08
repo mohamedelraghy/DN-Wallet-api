@@ -15,7 +15,7 @@ const historySchema = new mongoose.Schema({
         type : Number
     },
     resulte : [{
-        transactionOwner : {
+        to : {
             type: mongoose.Types.ObjectId,
             ref: 'User'
         },
