@@ -53,7 +53,7 @@ async function transfer(req, res) {
     history.result.unshift(transaction);
     await history.save();
 
-    if(!sender || !resiver) return res.status(400).json({ "error" : "cannot send money" });
+    if(!sender || !resiver) return res.status(400).json({ "error" : "User not found" });
 
     
     // check for currency_code
