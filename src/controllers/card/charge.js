@@ -31,7 +31,7 @@ async function charge(req, res) {
 
     let history = History.find({ accountOwner : req.user._id });
     if(!history) {
-        
+
         history = new History({
             accountOwner: user._id,
             consumption: 0,
@@ -52,11 +52,16 @@ async function charge(req, res) {
         
     } else {  
         
-        if(found.amount >= amount) found.amount -= amount;
+        if(found.amount >= amount){
+            
+            found.amount -= amount;
+            chargeAccount(acc.publicKey, amount, currency);
+            initialCurrency(acc.publicKey, amount, currency);
+
+        } 
+            
         else return res.status(400).json({ "error" : "not enough amount" });
         
-        chargeAccount(acc.publicKey, amount, currency);
-        initialCurrency(acc.publicKey, amount, currency);
     }
 
     await card.save();
