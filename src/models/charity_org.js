@@ -26,6 +26,7 @@ const charitySchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    required:true
   },
   phone: {
     type: String,
@@ -63,7 +64,7 @@ function validateCharity(charity){
         founders: Joi.string(),
         vision : Joi.string(),
         about : Joi.string(),
-        email : Joi.string().email(),
+        email : Joi.string().email().required(),
         phone : Joi.string().min(11),
         donation_number: Joi.number(),
         amount : Joi.number(),
