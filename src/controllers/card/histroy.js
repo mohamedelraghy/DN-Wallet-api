@@ -11,7 +11,7 @@ async function history(req, res) {
     const history = await History.findOne ({ accountOwner : req.user._id })
         .populate("result.to");
     
-        if(!history) return res.status(400).json({ "error" : "No history" });
+        if(!history) return res.status(200).json([]);
 
     // const accountHistory = await dnwalletContract.methods.getHistory().call({from:user.publicKey}); // save History
     
