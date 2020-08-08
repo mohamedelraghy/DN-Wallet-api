@@ -59,7 +59,7 @@ async function donate(req, res) {
    
 
     await chariy.save();
-    res.status(200).json(chariy);
+    res.status(200).json({ "success": "❤️جزاك الله كل خيرا" });
 }
 
  
