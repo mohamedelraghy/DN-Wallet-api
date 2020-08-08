@@ -14,7 +14,8 @@ module.exports = function(app){
     app.use((req, res, next) => {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Content-Disposition, Accept, x-auth-token, authorization");
+        // Origin, X-Requested-With, Content-Type, Content-Disposition, Accept, x-auth-token, authorization
+        res.header("Access-Control-Allow-Headers", "*");
         next();
     });
     app.use('/api/users', users);
