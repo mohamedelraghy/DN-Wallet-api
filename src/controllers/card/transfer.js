@@ -77,7 +77,7 @@ async function transfer(req, res) {
     if(!sender || !resiver) return res.status(400).json({ "error" : "User not found" });
     
     // check for currency_code
-    transferFromAccountTOAnother(sender.cryptedAcc,sender.email,resiver.publicKey,amount,currency);
+    transferFromAccountTOAnother(res, sender.cryptedAcc,sender.email,resiver.publicKey,amount,currency);
     updataingFromAccountCurrenct(sender.publicKey,amount,currency,115704);
     updataingToAccountCurrenct(resiver.publicKey,amount,currency);
     return res.status(200).json({ "success" : "Transaction done successfully" });
@@ -91,7 +91,7 @@ function validate(req) {
     }
     return Joi.validate(req, schema);
 }
- const transferFromAccountTOAnother = async(fromAddressJSON,fromEmail,toAddress,amount,currency) =>
+ const transferFromAccountTOAnother = async(res, fromAddressJSON,fromEmail,toAddress,amount,currency) =>
  {
     const fromAccount = await web3.eth.accounts.decrypt(fromAddressJSON,fromEmail);
     let etherValue;
@@ -120,7 +120,7 @@ function validate(req) {
     }
     if (amount >= balance)
     {
-      return 0  //Cant countine with code in file
+      res.status(400).json({ "error": "Not enough balance" });  //Cant countine with code in file
     }
     const transferFunctionData = dnwalletContract.methods.transferTo(toAddress,web3.utils.toWei(etherValue,'ether'),currency).encodeABI();
     const privKey = fromAccount['privateKey'].substring(2)
