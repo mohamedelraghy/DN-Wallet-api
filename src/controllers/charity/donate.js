@@ -37,7 +37,7 @@ async function donate(req, res) {
 
     history.consumption += amount;
     history.donate += amount;  
-    console.log(chariy.email);
+    
     const transaction = {
       id: chariy._id,
       email: chariy.email,
