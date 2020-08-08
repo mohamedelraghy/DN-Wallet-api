@@ -3,24 +3,27 @@ const mongoose = require('mongoose');
 const historySchema = new mongoose.Schema({
     accountOwner: {
         type: mongoose.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
     },
     consumption : {
-        type : Number
+        type : Number,
+        default : 0
     },
     send : {
-        type: Number
+        type: Number,
+        default : 0
     },
     donate : {
-        type : Number
+        type : Number,
+        default : 0
     },
-    resulte : [{
-        to : {
+    result : [{
+        id : {
             type: mongoose.Types.ObjectId,
-            ref: 'User'
         },
+        email : String,
         amount : {
-            type: Number
+            type: Number,
         },
         currencuy_code : {
             type : String
