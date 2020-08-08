@@ -9,7 +9,8 @@ var dnwalletContract = new web3.eth.Contract(abi,contractAdress)
 
 
 const { User } = require('../../models/user');
-const { Card } = require('../../models/card'); 
+const { Card } = require('../../models/card');
+const { History } = require('../../models/history');
 const ObjectId = require('mongoose').Types.ObjectId;
 const Joi = require('joi');
 
@@ -22,11 +23,22 @@ async function charge(req, res) {
 
     const amount = Number(req.body.amount);
     const currency = req.body.currency_code;
+    
     const acc = await User.findById(req.user._id)
         .populate("cards.cardID").select("cards cryptedAcc publicKey");
 
     if(!acc) return res.status(400).json({ "error" : "user with the given ID not found" });
 
+    let history = History.find({ accountOwner : req.user._id });
+    if(!history) {
+        
+        history = new History({
+            accountOwner: user._id,
+            consumption: 0,
+            send: 0,
+            donate: 0
+        });
+    }
     
     const cardID = req.params.cardID;
     
