@@ -41,8 +41,27 @@ async function withdraw(req, res) {
         card.balance.unshift(balance);
         
     } else {
+        const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:user.publicKey});
+        var checkCurrency;
+        if(currency == 'USD')
+        {
+          checkCurrency = Number(accountCurrency['USD']);
+        }else if(currency == 'EGP')
+        {
+          checkCurrency = Number(accountCurrency['EGP']);
+        }else if(currency == 'EUR')
+        {
+          checkCurrency = Number(accountCurrency['EUR']);
+        }
+        else if(currency == 'JPY')
+        {
+          checkCurrency = Number(accountCurrency['JPY']);
+        }
+        if(checkCurrency <= amount)
+        {
+          return res.status(400).json({ "error": "not enough money" });
+        }
         found.amount += amount;
-        
         withdrawFromAccount(res, user.cryptedAcc, user.email, amount,currency); // check if returns 0
         updataingCurrency(user.publicKey, amount, currency, 115704);
     }
