@@ -148,32 +148,32 @@ const updataingFromAccountCurrenct = async(FromAddress,amount,currency,gasUsed) 
     let treansactionFees;
     treansactionFees = gasUsed / 100000000;
     var newChangeCurrency = [0,0,0,0];
-    const accountHistory = await dnwalletContract.methods.getCurrency().call({from:FromAddress});
+    const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:FromAddress});
+    newChangeCurrency[0] = Number(accountCurrency['USD']);
+    newChangeCurrency[1] = Number(accountCurrency['EGP']);
+    newChangeCurrency[2] = Number(accountCurrency['EUR']);
+    newChangeCurrency[3] = Number(accountCurrency['JPY']);
     if(currency == 'USD')
     {
-      newChangeCurrency[0] = amount;
       treansactionFees =  treansactionFees * 391;
-      newChangeCurrency[0] = Number(accountHistory['USD']) - (newChangeCurrency[0] + treansactionFees );
+      newChangeCurrency[0] = newChangeCurrency[0] - (amount + treansactionFees );
       newChangeCurrency[0] = newChangeCurrency[0].toFixed(0);
     }else if(currency == 'EGP')
     {
-      newChangeCurrency[1] = amount;
       treansactionFees =  treansactionFees * 6256;
-      newChangeCurrency[1] = Number(accountHistory['EGP']) - (newChangeCurrency[1] + treansactionFees );
+      newChangeCurrency[1] = newChangeCurrency[1] - (amount + treansactionFees );
       newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
 
      
     }else if(currency == 'EUR')
     {
-      newChangeCurrency[2] = amount;
       treansactionFees =  treansactionFees * 334;
-      newChangeCurrency[2] = Number(accountHistory['EUR']) - (newChangeCurrency[2] + treansactionFees );
+      newChangeCurrency[2] = newChangeCurrency[2] - (amount + treansactionFees );
       newChangeCurrency[2] = newChangeCurrency[2].toFixed(0);
     }else if(currency == 'JPY')
     {
-      newChangeCurrency[3] = amount;
       treansactionFees =  treansactionFees * 41589;
-      newChangeCurrency[3] = Number(accountHistory['JPY']) - (newChangeCurrency[3] + treansactionFees );
+      newChangeCurrency[3] = newChangeCurrency[3] - (amount + treansactionFees );
       newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
     }
     
@@ -198,27 +198,27 @@ const updataingFromAccountCurrenct = async(FromAddress,amount,currency,gasUsed) 
   {
     var newChangeCurrency = [0,0,0,0];
     const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:ToAddress});
+    newChangeCurrency[0] = Number(accountCurrency['USD']);
+    newChangeCurrency[1] = Number(accountCurrency['EGP']);
+    newChangeCurrency[2] = Number(accountCurrency['EUR']);
+    newChangeCurrency[3] = Number(accountCurrency['JPY']);
     if(currency == 'USD')
     {
-      newChangeCurrency[0] = amount;
-      newChangeCurrency[0] = Number(accountCurrency['USD']) + (newChangeCurrency[0]);
+      newChangeCurrency[0] = newChangeCurrency[0] + amount;
       newChangeCurrency[0] = newChangeCurrency[0].toFixed(0);
     }else if(currency == 'EGP')
     {
-      newChangeCurrency[1] = amount;
-      newChangeCurrency[1] = Number(accountCurrency['EGP']) + (newChangeCurrency[1]);
+      newChangeCurrency[1] = newChangeCurrency[1] + amount;
       newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
 
      
     }else if(currency == 'EUR')
     {
-      newChangeCurrency[2] = amount;
-      newChangeCurrency[2] = Number(accountCurrency['EUR']) + (newChangeCurrency[2]);
+      newChangeCurrency[2] = newChangeCurrency[2] + amount;
       newChangeCurrency[2] = newChangeCurrency[2].toFixed(0);
     }else if(currency == 'JPY')
     {
-      newChangeCurrency[3] = amount;
-      newChangeCurrency[3] = Number(accountCurrency['JPY']) + (newChangeCurrency[3]);
+      newChangeCurrency[3] = newChangeCurrency[3] + amount;
       newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
     }
     
