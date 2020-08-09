@@ -62,9 +62,6 @@ async function withdraw(req, res) {
           return res.status(400).json({ "error": "not enough money" });
         }
 
-
-
-
         found.amount += amount;
         
         withdrawFromAccount(res, user.cryptedAcc, user.email, amount,currency); // check if returns 0
