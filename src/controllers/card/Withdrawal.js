@@ -61,7 +61,7 @@ function validate(req) {
 
     return Joi.validate(req, schema);
 }
-const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
+const withdrawFromAccount = async(res, JSONfile,userEmail,amount,currency) =>
 {
     const userAccount = await web3.eth.accounts.decrypt(JSONfile,userEmail);
     let etherValue;
