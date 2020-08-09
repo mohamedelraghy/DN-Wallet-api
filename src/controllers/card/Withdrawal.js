@@ -64,7 +64,7 @@ async function withdraw(req, res) {
 
         found.amount += amount;
         
-        withdrawFromAccount(res, user.cryptedAcc, user.email, amount,currency); // check if returns 0
+        withdrawFromAccount(user.cryptedAcc, user.email, amount,currency); // check if returns 0
         updataingCurrency(user.publicKey, amount, currency, 115704);
     }
 
