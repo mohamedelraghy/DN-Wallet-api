@@ -82,39 +82,29 @@ function validate(req) {
 
     return Joi.validate(req, schema);
 }
-const withdrawFromAccount = async(res, JSONfile,userEmail,amount,currency) =>
+const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
 {
     const userAccount = await web3.eth.accounts.decrypt(JSONfile,userEmail);
     let etherValue;
     var newChangeCurrency = [0,0,0,0];
     const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:userAccount['address']});
-    let balance;
     if(currency == 'USD')
     {
-        balance = Number(accountCurrency['USD']);
         etherValue = amount / 391;
-        etherValue = etherValue.toString();
     }else if(currency == 'EGP')
     {
-        balance = Number(accountCurrency['EGP']);
         etherValue = amount / 6256;
-        etherValue = etherValue.toString();
     }else if(currency == 'EUR')
     {
-        balance = Number(accountCurrency['EUR']);
         etherValue = amount / 334;
-        etherValue = etherValue.toString();
     }else if(currency == 'JPY')
     {
-        balance = Number(accountCurrency['JPY']);
         etherValue = amount / 41589;
-        etherValue = etherValue.toString();
     }
-    if (amount >= balance)
-    {
-       return res.status(400).json({ "error": "not enough money" });
-    }
-
+    etherValue = etherValue * 100000;
+    etherValue = etherValue.toFixed(0);
+    etherValue = etherValue / 100000;
+    etherValue = etherValue.toString();
     const withdrawFunctionData = dnwalletContract.methods.transferTo(mainAccount,web3.utils.toWei(etherValue,'ether'),currency).encodeABI();
     const privKey = userAccount['privateKey'].substring(2)
     const privateKeye = Buffer.from(privKey,'hex');

@@ -116,32 +116,23 @@ function validate(req) {
     const fromAccount = await web3.eth.accounts.decrypt(fromAddressJSON,fromEmail);
     let etherValue;
     const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:fromAccount['address']});
-    let balance;
     if(currency == 'USD')
     {
-        balance = Number(accountCurrency['USD']);
         etherValue = amount / 391;
-        etherValue = etherValue.toString();
     }else if(currency == 'EGP')
     {
-        balance = Number(accountCurrency['EGP']);
         etherValue = amount / 6256;
-        etherValue = etherValue.toString();
     }else if(currency == 'EUR')
     {
-        balance = Number(accountCurrency['EUR']);
         etherValue = amount / 334;
-        etherValue = etherValue.toString();
     }else if(currency == 'JPY')
     {
-        balance = Number(accountCurrency['JPY']);
         etherValue = amount / 41589;
-        etherValue = etherValue.toString();
     }
-    if (amount >= balance)
-    {
-      res.status(400).json({ "error": "Not enough balance" });  //Cant countine with code in file
-    }
+    etherValue = etherValue * 100000;
+    etherValue = etherValue.toFixed(0);
+    etherValue = etherValue / 100000;
+    etherValue = etherValue.toString();
     const transferFunctionData = dnwalletContract.methods.transferTo(toAddress,web3.utils.toWei(etherValue,'ether'),currency).encodeABI();
     const privKey = fromAccount['privateKey'].substring(2)
     const privateKeye = Buffer.from(privKey,'hex');
