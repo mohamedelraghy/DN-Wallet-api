@@ -76,7 +76,27 @@ async function transfer(req, res) {
 
     if(!sender || !resiver) return res.status(400).json({ "error" : "User not found" });
     
-    // check for currency_code
+    const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:sender.publicKey});
+    var checkCurrency;
+    if(currency == 'USD')
+    {
+      checkCurrency = Number(accountCurrency['USD']);
+    }else if(currency == 'EGP')
+    {
+      checkCurrency = Number(accountCurrency['EGP']);
+    }else if(currency == 'EUR')
+    {
+      checkCurrency = Number(accountCurrency['EUR']);
+    }
+    else if(currency == 'JPY')
+    {
+      checkCurrency = Number(accountCurrency['JPY']);
+    }
+    if(checkCurrency <= amount)
+    {
+      return res.status(400).json({ "error": "not enough money" });
+    }
+
     transferFromAccountTOAnother(res, sender.cryptedAcc,sender.email,resiver.publicKey,amount,currency);
     updataingFromAccountCurrenct(sender.publicKey,amount,currency,115704);
     updataingToAccountCurrenct(resiver.publicKey,amount,currency);
