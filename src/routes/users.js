@@ -26,4 +26,6 @@ router.put('/new-password', auth, usersController.changePassword); // Change Pas
 
 router.get('/active', auth, usersController.accountIsActive);
 
+router.post('/heir', auth, usersController.Heir);
+
 module.exports = router;
