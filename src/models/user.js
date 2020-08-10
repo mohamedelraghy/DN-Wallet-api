@@ -62,8 +62,15 @@ const userSchema = new mongoose.Schema({
         default : false
     },
     emailCode : String,
-    emailCodeExpiration: Date,
+    emailCodeExpiration:{
+        type: Date,
+        default: Date.now()
+    },
     lastActive : Date,
+    willIsActive: {
+        type : Boolean,
+        default: false
+    },
     cards : [{
         cardID : {
             type: mongoose.Types.ObjectId,

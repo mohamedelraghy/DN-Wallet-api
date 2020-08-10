@@ -27,7 +27,10 @@ async function heir(req, res) {
         heir2Precentage: heir2Precentage
     });
 
+    accOwner.willIsActive = true;
+    
     await heir.save();
+    await accOwner.save();
 
     return res.status(200).json({ "success": "The will will be executed after 90 days" });
 }
