@@ -113,26 +113,26 @@ const chargeAccount = async(toAddress,amount,currency) => {
   const initialCurrency = async(toAddress,amount,currency) =>
   {
     var newChangeCurrency = [0,0,0,0];
+
+    const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:toAddress});
+    newChangeCurrency[0] = Number(accountCurrency['USD']);
+    newChangeCurrency[1] = Number(accountCurrency['EGP']);
+    newChangeCurrency[2] = Number(accountCurrency['EUR']);
+    newChangeCurrency[3] = Number(accountCurrency['JPY']);
+
     if(currency == 'USD')
     {
-        newChangeCurrency[0] = amount;
+        newChangeCurrency[0] += amount;
     }else if(currency == 'EGP')
     {
-        newChangeCurrency[1] = amount;
+        newChangeCurrency[1] += amount;
     }else if(currency == 'EUR')
     {
-        newChangeCurrency[2] = amount;
+        newChangeCurrency[2] += amount;
     }else if(currency == 'JPY')
     {
-        newChangeCurrency[3] = amount;
+        newChangeCurrency[3] += amount;
     }
-
-    const accountHistory = await dnwalletContract.methods.getCurrency().call({from:toAddress});
-    newChangeCurrency[0] += Number(accountHistory['USD']);
-    newChangeCurrency[1] += Number(accountHistory['EGP']);
-    newChangeCurrency[2] += Number(accountHistory['EUR']);
-    newChangeCurrency[3] += Number(accountHistory['JPY']);
-    
     const changeCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(toAddress,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
     const txCount = await web3.eth.getTransactionCount(mainAccount);
     const txObject = 
