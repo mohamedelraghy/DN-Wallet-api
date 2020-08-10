@@ -63,6 +63,7 @@ const userSchema = new mongoose.Schema({
     },
     emailCode : String,
     emailCodeExpiration: Date,
+    lastActive : Date,
     cards : [{
         cardID : {
             type: mongoose.Types.ObjectId,
