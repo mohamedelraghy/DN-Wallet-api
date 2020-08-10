@@ -9,7 +9,6 @@ const config = require('config');
 const privateKey = Buffer.from(config.get('ethjsPrivateKey'), 'hex')
 
 
-
 const { User } = require('../../models/user');
 const { Card } = require('../../models/card');
 const ObjectId = require('mongoose').Types.ObjectId;
