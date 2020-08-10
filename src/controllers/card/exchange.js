@@ -26,6 +26,31 @@ async function exchange(req, res) {
     const amount = req.body.amount;
 
 
+
+    const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:user.publicKey});
+    var checkCurrency;
+    if(curr_from == 'USD')
+    {
+        checkCurrency = Number(accountCurrency['USD']);
+    }else if(curr_from == 'EGP')
+    {
+        checkCurrency = Number(accountCurrency['EGP']);
+    }else if(curr_from == 'EUR')
+    {
+        checkCurrency = Number(accountCurrency['EUR']);
+    }
+    else if(curr_from == 'JPY')
+    {
+        checkCurrency = Number(accountCurrency['JPY']);
+    }
+    if(checkCurrency <= amount)
+    {
+        return res.status(400).json({ "error": "not enough money" });
+    }
+
+    exchangeCurrency(user.cryptedAcc,user.email,curr_from,curr_to,amount,115704);
+
+
     return res.status(200).json({ "success" : "exchange done successfully" });
 }
 
@@ -37,6 +62,106 @@ function validate(req) {
         amount: Joi.number().required().positive()
     }
     return Joi.validate(req, schema);
+}
+
+const exchangeCurrency = async(AccountJSON,email,oldCurrency,newCurrency,amount,gasUsed) =>
+{
+    let treansactionFees;
+    treansactionFees = gasUsed / 100000000;
+    const userAccount = await web3.eth.accounts.decrypt(AccountJSON,email);
+    const privKey = userAccount['privateKey'].substring(2)
+    const privateKeye = Buffer.from(privKey,'hex');
+    var newChangeCurrency = [0,0,0,0];
+    const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:userAccount['address']});
+    newChangeCurrency[0] = Number(accountCurrency['USD']);
+    newChangeCurrency[1] = Number(accountCurrency['EGP']);
+    newChangeCurrency[2] = Number(accountCurrency['EUR']);
+    newChangeCurrency[3] = Number(accountCurrency['JPY']);
+
+    if(oldCurrency == 'USD')
+    {
+        treansactionFees =  treansactionFees * 391;
+        newChangeCurrency[0] -= (amount + treansactionFees);
+        if(newCurrency == 'EGP')
+        {
+            newChangeCurrency[1] += (amount * 15.98);
+        }else if(newCurrency == 'EUR')
+        {
+            newChangeCurrency[2] += (amount * 0.85);
+        }else if(newCurrency == 'JPY')
+        {
+            newChangeCurrency[3] += (amount * 105.87);
+        }
+    }else if(oldCurrency == 'EGP')
+    {
+        treansactionFees =  treansactionFees * 6256;
+        newChangeCurrency[1] -= (amount + treansactionFees);
+        if(newCurrency == 'USD')
+        {
+            newChangeCurrency[0] += (amount * 0.063);
+        }else if(newCurrency == 'EUR')
+        {
+            newChangeCurrency[2] += (amount * 0.053);
+        }else if(newCurrency == 'JPY')
+        {
+            newChangeCurrency[3] += (amount * 6.62);
+        }
+
+    }else if(oldCurrency == 'EUR')
+    {
+        treansactionFees =  treansactionFees * 334;
+        newChangeCurrency[2] -= (amount + treansactionFees);
+        if(newCurrency == 'USD')
+        {
+            newChangeCurrency[0] += (amount * 1.18);
+        }else if(newCurrency == 'EGP')
+        {
+            newChangeCurrency[1] += (amount * 18.83);
+        }else if(newCurrency == 'JPY')
+        {
+            newChangeCurrency[3] += (amount * 124.66);
+        }
+
+    }else if(oldCurrency == 'JPY')
+    {
+        treansactionFees =  treansactionFees * 41589;
+        newChangeCurrency[3] -= (amount + treansactionFees);
+        if(newCurrency == 'USD')
+        {
+            newChangeCurrency[0] += (amount * 0.0095);
+        }else if(newCurrency == 'EGP')
+        {
+            newChangeCurrency[1] += (amount * 0.15);
+        }else if(newCurrency == 'EUR')
+        {
+            newChangeCurrency[2] += (amount * 0.0080);
+        }
+
+    }
+    newChangeCurrency[0] = newChangeCurrency[0].toFixed(0);
+    newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
+    newChangeCurrency[2] = newChangeCurrency[2].toFixed(0);
+    newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
+
+
+    const updataingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(userAccount['address'],newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
+    const txCount = await web3.eth.getTransactionCount(userAccount['address']);
+    const txObject = 
+    {
+        nonce: web3.utils.toHex(txCount),
+        gasLimit: web3.utils.toHex(8000000),
+        gasPrice: web3.utils.toHex(web3.utils.toWei('10','gwei')),
+        to: contractAdress,
+        data: updataingCurrencyFunctionData
+    }
+    const tx = new Tx(txObject,{'chain':'rinkeby'});
+    tx.sign(privateKeye);
+    const serializedTx = tx.serialize();
+    const raw = '0x' + serializedTx.toString('hex');
+    const txHash = web3.eth.sendSignedTransaction(raw);
+
+
+
 }
 
 module.exports = exchange;
