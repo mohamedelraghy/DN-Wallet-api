@@ -13,6 +13,9 @@ async function login (req, res) {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).json({ "error": "Invalid email or password." });
 
+    user.lastActive = Date.now();
+    await user.save();
+
     const token = user.generateAuthToken();
     res.status(200).json({ "token": token });
 }
