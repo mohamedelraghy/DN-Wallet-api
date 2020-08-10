@@ -13,6 +13,8 @@ async function heir(req, res) {
     const heir1 = await User.findOne({ email: req.body.first_heir });
     const heir2 = await User.findOne({ email: req.body.second_heir });
 
+    if(heir1.email == accOwner.email || heir2.email == accOwner.email) return res.status(400).json({ "error" : "cannot make your self a heir" });
+    
     if(!heir1) return res.status(400).json({ "error" : "Cannot find the first heir" });
     if(!heir2) return res.status(400).json({ "error" : "Cannot find the second heir" });
 
