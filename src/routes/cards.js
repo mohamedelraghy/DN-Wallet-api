@@ -22,6 +22,8 @@ router.post('/withdraw/:cardID', auth, cardController.withdraw);
 
 router.post('/transfer', auth, cardController.transfer);
 
+router.post('/exchange', auth, cardController.exchange);
+
 
 
 
