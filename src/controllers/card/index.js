@@ -5,6 +5,7 @@ const transfer = require('./transfer');
 const withdraw = require('./Withdrawal');
 const getBalance = require('./getBalance');
 const history = require('./histroy');
+const exchange = require('./exchange');
 
 
 module.exports = {
@@ -14,5 +15,6 @@ module.exports = {
     transfer,
     withdraw,
     getBalance,
-    history
+    history,
+    exchange
 }
