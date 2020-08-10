@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { User } = require('../../models/user');
+const { Heir } = require('../../models/heir');
 
 async function heir(req, res) {
 
@@ -18,8 +19,17 @@ async function heir(req, res) {
     const heir1Precentage = req.body.precentage;
     const heir2Precentage = 100 - req.body.precentage;
 
-    
+    const heir = new Heir({
+        accOwner: accOwner.email,
+        heir1: heir1.email,
+        heir2: heir2.email,
+        heir1Precentage: heir1Precentage,
+        heir2Precentage: heir2Precentage
+    });
 
+    await heir.save();
+
+    return res.status(200).json({ "success": "The will will be executed after 90 days" });
 }
 
 function validate(req){
@@ -32,4 +42,4 @@ function validate(req){
     return Joi.validate(req, schema);
 }
 
-module.exports   = heir;
+module.exports = heir;
