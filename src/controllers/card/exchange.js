@@ -16,6 +16,7 @@ async function exchange(req, res) {
     const curr_to = req.body.curr_to;
     const amount = req.body.amount;
 
+
     return res.status(200).json({ "success" : "exchange done successfully" });
 }
 
@@ -30,4 +31,3 @@ function validate(req) {
 }
 
 module.exports = exchange;
-
