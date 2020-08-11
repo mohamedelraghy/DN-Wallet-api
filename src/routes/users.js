@@ -30,4 +30,6 @@ router.post('/heir', auth, usersController.Heir);
 
 router.get('/heir', auth, usersController.listWill);
 
+router.put('/heir', auth, usersController.editWill);
+
 module.exports = router;

@@ -10,6 +10,7 @@ const forgetPasswordCheck = require('./forgetPasswordCheck');
 const accountIsActive = require('./accountIsActive');
 const Heir = require('./addHeir');
 const listWill = require('./listWill');
+const editWill = require('./updateheir');
 
 module.exports = {
   register,
@@ -23,5 +24,6 @@ module.exports = {
   forgetPasswordCheck,
   accountIsActive,
   Heir,
-  listWill
+  listWill,
+  editWill
 }
