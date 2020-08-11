@@ -8,8 +8,12 @@ async function heir(req, res) {
     if (error) return res.status(400).json({ "error": error.details[0].message });
 
     const accOwner = await User.findById(req.user._id);
-    if(!accOwner) res.status(400).json({ "error": "User is not found" });
+    if(!accOwner) return res.status(400).json({ "error": "User is not found" });
 
+    const will = await Heir.find({ accOwner : accOwner.email });
+    console.log(will);
+    if (will.length != 0) return res.status(400).json({ "error": "The will has already been written" });
+    
     const heir1 = await User.findOne({ email: req.body.first_heir });
     const heir2 = await User.findOne({ email: req.body.second_heir });
 
