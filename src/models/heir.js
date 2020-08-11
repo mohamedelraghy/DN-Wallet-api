@@ -5,7 +5,8 @@ const heirSchema = new mongoose.Schema({
         type: String,
         required: true,
         min: 5,
-        max: 255
+        max: 255,
+        unique: true
     },
     heir1: {
         type: String,
