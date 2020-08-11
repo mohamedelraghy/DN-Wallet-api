@@ -28,4 +28,6 @@ router.get('/active', auth, usersController.accountIsActive);
 
 router.post('/heir', auth, usersController.Heir);
 
+router.get('/heir', auth, usersController.listWill);
+
 module.exports = router;
