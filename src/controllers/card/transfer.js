@@ -26,6 +26,9 @@ async function transfer(req, res) {
     
     const sender = await User.findById(cardHolder).select("cards cryptedAcc publicKey email");
     const resiver = await User.findOne({ email : req.body.email }).select("_id email cards cryptedAcc publicKey email");
+
+    if(!sender) return res.status(400).json({ "error": "Login First" });
+    if(!resiver) return res.status(400).json({ "error": "Please Select You destination" });
     
     let history = await History.findOne({ accountOwner: cardHolder });
 
