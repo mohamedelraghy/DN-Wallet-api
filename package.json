@@ -40,7 +40,7 @@
     "lodash": "^4.17.19",
     "marked": "^1.1.1",
     "mongoose": "^5.9.24",
-    "nodemailer": "^6.4.10",
+    "nodemailer": "^6.4.16",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "npm-check-updates": "^7.0.1",
     "npm-registry-fetch": "^8.1.2",
