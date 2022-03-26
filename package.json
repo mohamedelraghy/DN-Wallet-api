@@ -51,7 +51,7 @@
     "winston-mongodb": "^5.0.1"
   },
   "devDependencies": {
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "nodemon": "^2.0.4"
   },
   "optionalDependencies": {
