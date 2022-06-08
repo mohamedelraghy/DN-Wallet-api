@@ -10,7 +10,7 @@
     "test": "jest --watchAll --verbose --coverage"
   },
   "engines": {
-    "node": "12.16.1"
+    "node": "17.3.0"
   },
   "repository": {
     "type": "git",
