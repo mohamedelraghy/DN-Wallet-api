@@ -41,7 +41,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.19",
     "marked": "^4.0.16",
-    "mongoose": "^5.9.24",
+    "mongoose": "^5.13.15",
     "nodemailer": "^6.4.10",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "npm-check-updates": "^7.0.1",
