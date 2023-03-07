@@ -3,4 +3,7 @@ node_modules/
 *.env
 *.DS_Store
 pushNotification.json
-dist/
+
+
+# Ignore built ts files
+dist/**/*
