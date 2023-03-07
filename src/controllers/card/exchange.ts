@@ -138,10 +138,10 @@ const exchangeCurrency = async(AccountJSON,email,oldCurrency,newCurrency,amount,
         }
 
     }
-    newChangeCurrency[0] = newChangeCurrency[0].toFixed(0);
-    newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
-    newChangeCurrency[2] = newChangeCurrency[2].toFixed(0);
-    newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
+    newChangeCurrency[0] = newChangeCurrency[0];
+    newChangeCurrency[1] = newChangeCurrency[1];
+    newChangeCurrency[2] = newChangeCurrency[2];
+    newChangeCurrency[3] = newChangeCurrency[3];
 
 
     const updataingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(userAccount['address'],newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();

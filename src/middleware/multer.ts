@@ -17,7 +17,7 @@ const fileFilter = (req, file, cb) => {
     if (mimeType) return cb(null, true);
 
     cb("Error: File upload only supports the "
-        + "following filetypes - " + filetypes);
+        + "following filetypes - " + fileTypes);
 }
 
 const upload = multer({

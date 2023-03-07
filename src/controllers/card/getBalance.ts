@@ -34,7 +34,10 @@ async function getBalance (req, res) {
     }
 
     const curr = ['EGP', 'USD', 'EUR', 'JPY'];
-    const result =[];
+    const result : {
+        amount : any,
+        currency_code: string
+    } []=[];
     
     curr.forEach(ele => {
         const balance = {

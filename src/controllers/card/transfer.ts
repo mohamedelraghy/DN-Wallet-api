@@ -171,24 +171,24 @@ const updataingFromAccountCurrenct = async(FromAddress,amount,currency,gasUsed) 
     {
       treansactionFees =  treansactionFees * 391;
       newChangeCurrency[0] = newChangeCurrency[0] - (amount + treansactionFees );
-      newChangeCurrency[0] = newChangeCurrency[0].toFixed(0);
+      newChangeCurrency[0] = newChangeCurrency[0];
     }else if(currency == 'EGP')
     {
       treansactionFees =  treansactionFees * 6256;
       newChangeCurrency[1] = newChangeCurrency[1] - (amount + treansactionFees );
-      newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
+      newChangeCurrency[1] = newChangeCurrency[1];
 
      
     }else if(currency == 'EUR')
     {
       treansactionFees =  treansactionFees * 334;
       newChangeCurrency[2] = newChangeCurrency[2] - (amount + treansactionFees );
-      newChangeCurrency[2] = newChangeCurrency[2].toFixed(0);
+      newChangeCurrency[2] = newChangeCurrency[2];
     }else if(currency == 'JPY')
     {
       treansactionFees =  treansactionFees * 41589;
       newChangeCurrency[3] = newChangeCurrency[3] - (amount + treansactionFees );
-      newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
+      newChangeCurrency[3] = newChangeCurrency[3];
     }
     
   const updatingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(FromAddress,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
@@ -219,21 +219,21 @@ const updataingFromAccountCurrenct = async(FromAddress,amount,currency,gasUsed) 
     if(currency == 'USD')
     {
       newChangeCurrency[0] = newChangeCurrency[0] + amount;
-      newChangeCurrency[0] = newChangeCurrency[0].toFixed(0);
+      newChangeCurrency[0] = newChangeCurrency[0];
     }else if(currency == 'EGP')
     {
       newChangeCurrency[1] = newChangeCurrency[1] + amount;
-      newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
+      newChangeCurrency[1] = newChangeCurrency[1];
 
      
     }else if(currency == 'EUR')
     {
       newChangeCurrency[2] = newChangeCurrency[2] + amount;
-      newChangeCurrency[2] = newChangeCurrency[2].toFixed(0);
+      newChangeCurrency[2] = newChangeCurrency[2];
     }else if(currency == 'JPY')
     {
       newChangeCurrency[3] = newChangeCurrency[3] + amount;
-      newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
+      newChangeCurrency[3] = newChangeCurrency[3];
     }
     
     const updatingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(ToAddress,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();

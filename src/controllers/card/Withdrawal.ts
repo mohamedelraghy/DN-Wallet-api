@@ -129,7 +129,7 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
   {
     let treansactionFees;
     treansactionFees = gasUsed / 100000000;
-    var newChangeCurrency = [0,0,0,0];
+    let newChangeCurrency: number[] = [0,0,0,0];
     const accountCurrency = await dnwalletContract.methods.getCurrency().call({from:userAccount});
     newChangeCurrency[0] = Number(accountCurrency['USD']);
     newChangeCurrency[1] = Number(accountCurrency['EGP']);
@@ -139,24 +139,19 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
     {
       treansactionFees =  treansactionFees * 391;
       newChangeCurrency[0] = newChangeCurrency[0] - (amount + treansactionFees );
-      newChangeCurrency[0] = newChangeCurrency[0].toFixed(0);
     }else if(currency == 'EGP')
     {
       treansactionFees =  treansactionFees * 6256;
       newChangeCurrency[1] = newChangeCurrency[1] - (amount + treansactionFees );
-      newChangeCurrency[1] = newChangeCurrency[1].toFixed(0);
-
      
     }else if(currency == 'EUR')
     {
       treansactionFees =  treansactionFees * 334;
       newChangeCurrency[2] = newChangeCurrency[2] - (amount + treansactionFees );
-      newChangeCurrency[2] = newChangeCurrency[2].toFixed(0);
     }else if(currency == 'JPY')
     {
       treansactionFees =  treansactionFees * 41589;
       newChangeCurrency[3] = newChangeCurrency[3] - (amount + treansactionFees );
-      newChangeCurrency[3] = newChangeCurrency[3].toFixed(0);
     }
     
     const updataingCurrencyFunctionData = dnwalletContract.methods.changeCurrencies(userAccount,newChangeCurrency[0],newChangeCurrency[1],newChangeCurrency[2],newChangeCurrency[3]).encodeABI();
