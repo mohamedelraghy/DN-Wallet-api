@@ -35,3 +35,6 @@ function validate(req){
 }
 
 module.exports = resetPassword;
+
+
+export {};

@@ -30,3 +30,5 @@ function validateBank(bank){
 
 exports.Bank = Bank;
 exports.Validate = validateBank;
+
+export {};

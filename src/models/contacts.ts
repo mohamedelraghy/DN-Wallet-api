@@ -17,3 +17,5 @@ const Contact = mongoose.model('Contact', contactsSchema);
 
 
 exports.Contact = Contact;
+
+export {};

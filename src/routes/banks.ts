@@ -9,3 +9,5 @@ router.post('/charge', bankController.chargeBank);
 
 
 module.exports = router;
+
+export {};

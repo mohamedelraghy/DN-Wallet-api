@@ -28,3 +28,5 @@ function validate(req) {
 }
 
 module.exports = checkActiveKey;
+
+export {};

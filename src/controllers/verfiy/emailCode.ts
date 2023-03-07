@@ -30,3 +30,5 @@ function generateCode(digit_num) {
 }
 
 module.exports = sendCodeToEmail;
+
+export {};

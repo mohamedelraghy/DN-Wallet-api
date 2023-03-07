@@ -8,3 +8,5 @@ router.post('/', auth, verificationController.sendCode);
 router.post('/check', auth, verificationController.codeCheck);
 
 module.exports = router;
+
+export {};

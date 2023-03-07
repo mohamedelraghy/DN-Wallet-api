@@ -41,3 +41,5 @@ const createAccountsOnNetwork = async (user) =>
   user.publicKey = publicKey;
 }
 module.exports = register;  
+
+export {};

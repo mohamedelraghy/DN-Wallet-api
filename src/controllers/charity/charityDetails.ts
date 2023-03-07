@@ -7,3 +7,5 @@ async function charityDetails(req, res) {
 }
 
 module.exports = charityDetails;
+
+export {};

@@ -9,3 +9,5 @@ module.exports = {
     emailcode,
     checkActiveKey
 }
+
+export {};

@@ -9,3 +9,5 @@ async function accountIsActiv(req, res) {
 
 
 module.exports = accountIsActiv;
+
+export {};

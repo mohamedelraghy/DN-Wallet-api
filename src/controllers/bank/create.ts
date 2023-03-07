@@ -25,3 +25,5 @@ async function createBank(req, res) {
 }
 
 module.exports = createBank;
+
+export {};

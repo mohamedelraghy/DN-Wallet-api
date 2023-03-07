@@ -27,3 +27,5 @@ module.exports = {
   listWill,
   editWill
 }
+
+export {};

@@ -28,3 +28,5 @@ async function chargeBank(req, res) {
 }
 
 module.exports = chargeBank;
+
+export {}

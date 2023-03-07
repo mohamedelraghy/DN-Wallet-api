@@ -34,3 +34,5 @@ async function codeCheck(req, res){
 }
 
 module.exports = codeCheck;
+
+export {};

@@ -151,3 +151,5 @@ const chargeAccount = async(toAddress,amount,currency) => {
   }
 
 module.exports = charge;
+
+export {};

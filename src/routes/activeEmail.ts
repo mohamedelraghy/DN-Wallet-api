@@ -10,3 +10,5 @@ router.get('/', auth, verficationController.emailcode); // send activation key t
 router.post('/', auth, verficationController.checkActiveKey);
 
 module.exports = router;
+
+export{}

@@ -33,3 +33,5 @@ async function setProfilePic(req, res) {
 }
 
 module.exports = setProfilePic;
+
+export {};

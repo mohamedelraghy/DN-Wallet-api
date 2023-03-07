@@ -55,3 +55,5 @@ function validateCard(card) {
 
 exports.Card = Card;
 exports.Validate = validateCard;
+
+export {};

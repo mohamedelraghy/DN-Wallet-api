@@ -52,3 +52,5 @@ function validate(req){
 }
 
 module.exports = heir;
+
+export {};

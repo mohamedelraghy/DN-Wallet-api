@@ -165,3 +165,5 @@ const exchangeCurrency = async(AccountJSON,email,oldCurrency,newCurrency,amount,
 }
 
 module.exports = exchange;
+
+export {};

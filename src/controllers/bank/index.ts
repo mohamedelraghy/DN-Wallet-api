@@ -6,3 +6,5 @@ module.exports = {
     createBank,
     chargeBank
 }
+
+export {}

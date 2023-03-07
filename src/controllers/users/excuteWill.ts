@@ -37,3 +37,5 @@ async function excuteWill() {
 // function calcAmount()
 
 excuteWill();
+
+export {};

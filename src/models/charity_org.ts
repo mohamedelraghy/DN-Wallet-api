@@ -76,3 +76,5 @@ function validateCharity(charity){
 
 exports.Charity = Charity;
 exports.validate = validateCharity;
+
+export {};

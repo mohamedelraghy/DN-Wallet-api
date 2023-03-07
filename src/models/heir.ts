@@ -27,3 +27,5 @@ const heirSchema = new mongoose.Schema({
 const Heir = mongoose.model('Heir', heirSchema);
 
 exports.Heir = Heir;
+
+export {};

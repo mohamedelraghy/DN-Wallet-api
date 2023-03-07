@@ -13,3 +13,5 @@ async function Me (req, res){
 }
 
 module.exports = Me;
+
+export {};

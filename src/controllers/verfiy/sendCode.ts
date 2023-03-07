@@ -34,3 +34,6 @@ function validate(req) {
 }
 
 module.exports = sendCode;
+
+
+export {};

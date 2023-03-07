@@ -16,3 +16,5 @@ async function listWill(req, res){
 
 module.exports = listWill;
 
+export {};
+

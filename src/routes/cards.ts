@@ -28,3 +28,5 @@ router.post('/exchange', auth, cardController.exchange);
 
 
 module.exports = router;
+
+export {};

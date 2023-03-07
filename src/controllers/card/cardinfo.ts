@@ -12,3 +12,5 @@ async function getUserCards(req, res) {
 }
 
 module.exports = getUserCards;
+
+export {}

@@ -29,3 +29,5 @@ function validate(req){
 }
 
 module.exports = checkCode;
+
+export {};

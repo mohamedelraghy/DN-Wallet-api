@@ -14,3 +14,5 @@ router.post('/create', charityController.Create);
 router.post('/donate/:id', auth, charityController.donate);
 
 module.exports = router;
+
+export {};

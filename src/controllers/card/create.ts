@@ -57,3 +57,5 @@ async function createCard(req, res) {
 }
 
 module.exports = createCard;
+
+export {};

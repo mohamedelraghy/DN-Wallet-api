@@ -11,3 +11,6 @@ router.post('/create', auth, contactsController.Create);
 router.delete('/delete/:id', auth, contactsController.Delete);
 
 module.exports = router;
+
+
+export {};

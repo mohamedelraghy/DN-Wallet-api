@@ -16,3 +16,5 @@ async function cloudinaryUpload(path) {
 }
 
 module.exports = cloudinaryUpload;
+
+export {};

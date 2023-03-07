@@ -9,3 +9,5 @@ module.exports = {
     charityList,
     charityDetails,
 }
+
+export {};

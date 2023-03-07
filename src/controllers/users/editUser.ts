@@ -30,3 +30,5 @@ function Validate(req){
 
 
 module.exports = editUser;
+
+export {};

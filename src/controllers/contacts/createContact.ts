@@ -45,3 +45,5 @@ function validate(req){
 }
 
 module.exports = create;
+
+export {};

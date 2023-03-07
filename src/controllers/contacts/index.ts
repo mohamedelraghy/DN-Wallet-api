@@ -7,3 +7,5 @@ module.exports = {
     showAll,
     Delete,
 }
+
+export {};

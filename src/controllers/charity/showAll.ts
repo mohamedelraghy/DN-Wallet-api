@@ -6,3 +6,6 @@ async function showAll (req, res) {
 }
 
 module.exports = showAll;
+
+
+export {};

@@ -14,3 +14,5 @@ async function deletePic(req, res){
 }
 
 module.exports = deletePic;
+
+export {};

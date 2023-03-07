@@ -10,3 +10,5 @@ module.exports = function(){
     if (!config.get('twilio-auth_token')) throw new Error('FATAL ERROR: Twilio AUTH TOKEN is not define.');
     if (!config.get('sendGrid-api_key')) throw new Error('FATAL ERROR: SendGrid API_key is not define.');
 }
+
+export{};

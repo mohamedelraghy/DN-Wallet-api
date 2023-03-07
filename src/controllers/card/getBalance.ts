@@ -50,3 +50,5 @@ async function getBalance (req, res) {
 }
 
 module.exports = getBalance;
+
+export {};

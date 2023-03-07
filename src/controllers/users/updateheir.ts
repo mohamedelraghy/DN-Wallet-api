@@ -43,3 +43,5 @@ function validate(req) {
 }
 
 module.exports = editWill;
+
+export {};

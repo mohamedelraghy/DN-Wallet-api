@@ -176,3 +176,5 @@ const withdrawFromAccount = async(JSONfile,userEmail,amount,currency) =>
     const txHash = web3.eth.sendSignedTransaction(raw);
   }
 module.exports = withdraw;
+
+export {};

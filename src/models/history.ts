@@ -41,3 +41,5 @@ const historySchema = new mongoose.Schema({
 const History = mongoose.model('Histroy', historySchema);
 
 exports.History = History;
+
+export {};

@@ -30,3 +30,5 @@ function validate(req) {
 }
 
 module.exports = login;
+
+export {}

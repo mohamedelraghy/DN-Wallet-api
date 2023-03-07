@@ -21,3 +21,5 @@ async function history(req, res) {
 
 
 module.exports = history;
+
+export {};

@@ -211,3 +211,5 @@ const updatingCharityCurrency = async (ToAddress, amount, currency) => {
 
 
 module.exports = donate;
+
+export {};

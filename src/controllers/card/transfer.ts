@@ -253,3 +253,6 @@ const updataingFromAccountCurrenct = async(FromAddress,amount,currency,gasUsed) 
     const txHash = web3.eth.sendSignedTransaction(raw);
   }
 module.exports = transfer;
+
+
+export{};
