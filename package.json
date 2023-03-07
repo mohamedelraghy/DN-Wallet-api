@@ -2,10 +2,10 @@
   "name": "dn-wallet-api",
   "version": "1.0.0",
   "description": "RestApi for DN-Wallet Project ",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.ts",
+    "start": "node dist/index.js",
+    "dev": "nodemon dist/index.ts",
     "build": "tsc -p .",
     "test": "jest --watchAll --verbose --coverage"
   },
